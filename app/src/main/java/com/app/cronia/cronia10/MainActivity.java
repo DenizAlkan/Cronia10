@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //durumlar
         durum_1_1 = 0;
         durum_1_2 = 0;
+        durum_2_1 = 0;
         durum_2_2 = 0;
         durum_3_1 = 0;
         durum_3_2 = 0;
@@ -122,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId())
         {
-
 
             case R.id.main_cardvw_1_1 :
                     if( durum_1_1 == 0) {
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         main_chr_1_1.setBase(SystemClock.elapsedRealtime());
                         main_chr_1_1.stop();
                         main_chr_1_1.setVisibility(View.INVISIBLE);
+                        resetChr();
                     }
 
 
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         main_chr_1_2.setBase(SystemClock.elapsedRealtime());
                         main_chr_1_2.stop();
                         main_chr_1_2.setVisibility(View.INVISIBLE);
+                        resetChr();
                     }
 
 
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_2_1.setBase(SystemClock.elapsedRealtime());
                     main_chr_2_1.stop();
                     main_chr_2_1.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_2_2.setBase(SystemClock.elapsedRealtime());
                     main_chr_2_2.stop();
                     main_chr_2_2.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
@@ -216,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_3_1.setBase(SystemClock.elapsedRealtime());
                     main_chr_3_1.stop();
                     main_chr_3_1.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
@@ -236,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_3_2.setBase(SystemClock.elapsedRealtime());
                     main_chr_3_2.stop();
                     main_chr_3_2.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
