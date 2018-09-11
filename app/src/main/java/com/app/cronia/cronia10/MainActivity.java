@@ -15,6 +15,7 @@ import android.widget.Toolbar;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public CardView main_cardvw_1_1,main_cardvw_1_2, main_cardvw_2_1, main_cardvw_2_2, main_cardvw_3_1, main_cardvw_3_2;
     public Chronometer main_chr_1_1,main_chr_1_2,main_chr_2_1,main_chr_2_2,main_chr_3_1,main_chr_3_2;
+    public ImageButton main_btn_1_1;
     public int durum_1_1= 0 , durum_1_2 = 0, durum_2_1 = 0, durum_2_2 = 0 ,durum_3_1 = 0 , durum_3_2 = 0;
     private ImageButton footer_imgbtn_dashboard;
     private ImageButton footer_imgbtn_home;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_cardvw_3_1 = (CardView) findViewById(R.id.main_cardvw_3_1);
         main_cardvw_3_2 = (CardView) findViewById(R.id.main_cardvw_3_2);
 
+        //cardviews image buttons tanımlamaları
+        main_btn_1_1 = (ImageButton) findViewById(R.id.main_btn_1_1);
+
         footer_imgbtn_dashboard = (ImageButton) findViewById(R.id.footer_imgbtn_dashboard);
         footer_imgbtn_home = (ImageButton) findViewById(R.id.footer_imgbtn_home);
         footer_imgbtn_profile = (ImageButton) findViewById(R.id.footer_imgbtn_profile);
@@ -66,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_cardvw_2_2.setOnClickListener(this);
         main_cardvw_3_1.setOnClickListener(this);
         main_cardvw_3_2.setOnClickListener(this);
+
+        //click listener chr
+        main_chr_1_1.setOnClickListener(this);
+
+        //click listener image buttons
+        main_btn_1_1.setOnClickListener(this);
 
 
         footer_imgbtn_dashboard .setOnClickListener(this);
@@ -124,7 +134,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId())
         {
 
-            case R.id.main_cardvw_1_1 :
+            case R.id.main_cardvw_1_1  :
+            case R.id.main_chr_1_1  :
+            case R.id.main_btn_1_1  :
+
                     if( durum_1_1 == 0) {
                         resetChr();
                         main_chr_1_1.setBase(SystemClock.elapsedRealtime());
