@@ -4,10 +4,13 @@ package com.app.cronia.cronia10;
         import android.net.Uri;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
+        import android.support.v4.content.ContextCompat;
         import android.support.v7.app.AppCompatActivity;
         import android.view.Display;
         import android.view.View;
         import android.view.View.OnClickListener;
+        import android.view.Window;
+        import android.view.WindowManager;
         import android.widget.Button;
         import android.widget.TextView;
 
@@ -21,6 +24,12 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        //statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.login_rect_color));
 
         LoginButton = (Button)findViewById(R.id.button_login);
         LoginButton.setOnClickListener(new OnClickListener() {

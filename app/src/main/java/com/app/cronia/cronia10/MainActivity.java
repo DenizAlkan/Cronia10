@@ -1,12 +1,16 @@
 package com.app.cronia.cronia10;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,6 +19,7 @@ import android.widget.Toolbar;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public CardView main_cardvw_1_1,main_cardvw_1_2, main_cardvw_2_1, main_cardvw_2_2, main_cardvw_3_1, main_cardvw_3_2;
     public Chronometer main_chr_1_1,main_chr_1_2,main_chr_2_1,main_chr_2_2,main_chr_3_1,main_chr_3_2;
+    public ImageButton main_btn_1_1;
     public int durum_1_1= 0 , durum_1_2 = 0, durum_2_1 = 0, durum_2_2 = 0 ,durum_3_1 = 0 , durum_3_2 = 0;
     private ImageButton footer_imgbtn_dashboard;
     private ImageButton footer_imgbtn_home;
@@ -27,6 +32,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //statusbar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.main_rect_color));
 
 
 
@@ -45,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_cardvw_2_2 = (CardView) findViewById(R.id.main_cardvw_2_2);
         main_cardvw_3_1 = (CardView) findViewById(R.id.main_cardvw_3_1);
         main_cardvw_3_2 = (CardView) findViewById(R.id.main_cardvw_3_2);
+
+        //cardviews image buttons tanımlamaları
+        main_btn_1_1 = (ImageButton) findViewById(R.id.main_btn_1_1);
 
         footer_imgbtn_dashboard = (ImageButton) findViewById(R.id.footer_imgbtn_dashboard);
         footer_imgbtn_home = (ImageButton) findViewById(R.id.footer_imgbtn_home);
@@ -66,6 +80,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_cardvw_2_2.setOnClickListener(this);
         main_cardvw_3_1.setOnClickListener(this);
         main_cardvw_3_2.setOnClickListener(this);
+
+        //click listener chr
+        main_chr_1_1.setOnClickListener(this);
+
+        //click listener image buttons
+        main_btn_1_1.setOnClickListener(this);
 
 
         footer_imgbtn_dashboard .setOnClickListener(this);
@@ -124,8 +144,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId())
         {
 
+            case R.id.main_cardvw_1_1  :
+            case R.id.main_chr_1_1  :
+            case R.id.main_btn_1_1  :
 
-            case R.id.main_cardvw_1_1 :
                     if( durum_1_1 == 0) {
                         resetChr();
                         main_chr_1_1.setBase(SystemClock.elapsedRealtime());
@@ -138,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         main_chr_1_1.setBase(SystemClock.elapsedRealtime());
                         main_chr_1_1.stop();
                         main_chr_1_1.setVisibility(View.INVISIBLE);
+                        resetChr();
                     }
 
 
@@ -157,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         main_chr_1_2.setBase(SystemClock.elapsedRealtime());
                         main_chr_1_2.stop();
                         main_chr_1_2.setVisibility(View.INVISIBLE);
+                        resetChr();
                     }
 
 
@@ -177,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_2_1.setBase(SystemClock.elapsedRealtime());
                     main_chr_2_1.stop();
                     main_chr_2_1.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
@@ -197,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_2_2.setBase(SystemClock.elapsedRealtime());
                     main_chr_2_2.stop();
                     main_chr_2_2.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
@@ -217,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_3_1.setBase(SystemClock.elapsedRealtime());
                     main_chr_3_1.stop();
                     main_chr_3_1.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
@@ -237,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_chr_3_2.setBase(SystemClock.elapsedRealtime());
                     main_chr_3_2.stop();
                     main_chr_3_2.setVisibility(View.INVISIBLE);
+                    resetChr();
                 }
 
 
