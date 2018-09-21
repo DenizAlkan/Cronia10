@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //durumlar
         durum_1_1 = 0;
         durum_1_2 = 0;
+        durum_2_1 = 0;
         durum_2_2 = 0;
         durum_3_1 = 0;
         durum_3_2 = 0;
