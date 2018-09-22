@@ -122,10 +122,11 @@ Gece koşusundasın"
             android:layout_marginBottom="1dp"
             android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
+            android:background="@drawable/cardview_border"
+            android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:stateListAnimator="@drawable/lift_on_touch"
-            android:clickable="true"
-            android:background="@drawable/cardview_border">
+            >
 
             <LinearLayout
                 android:id="@+id/main_linear_1_1"
@@ -141,6 +142,8 @@ Gece koşusundasın"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:background="#0000"
+
+                    android:focusable="false"
                     android:src="@drawable/main_ent_eatingicon" />
 
                 <TextView
@@ -157,7 +160,8 @@ Gece koşusundasın"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/cardview_light_background" />
 
             </LinearLayout>
 
@@ -211,7 +215,8 @@ Gece koşusundasın"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/cardview_light_background" />
 
             </LinearLayout>
 
@@ -260,7 +265,8 @@ Gece koşusundasın"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/cardview_light_background" />
 
             </LinearLayout>
 
@@ -309,7 +315,8 @@ Gece koşusundasın"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/cardview_light_background" />
 
             </LinearLayout>
 
@@ -362,7 +369,8 @@ Gece koşusundasın"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/cardview_light_background" />
 
             </LinearLayout>
 
@@ -409,7 +417,8 @@ Gece koşusundasın"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/cardview_light_background" />
 
             </LinearLayout>
 

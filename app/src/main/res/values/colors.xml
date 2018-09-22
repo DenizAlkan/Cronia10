@@ -5,18 +5,34 @@
     <color name="colorAccent">#FF4081</color>
 
 
-        <color name="black">#000000</color>
-        <color name="white">#ffffff</color>
-        <color name="black_two">#2c2c2c</color>
-        <color name="warm_grey">#a0a0a0</color>
-        <color name="light_teal">#a9e8dc</color>
-        <color name="turquoise_blue">#02bec4</color>
-        <color name="teal_blue">#0284a8</color>
-        <color name="hospital_green">#499c43</color>
-        <color name="dark">#152330</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black_two">#2c2c2c</color>
+    <color name="warm_grey">#a0a0a0</color>
+    <color name="light_teal">#a9e8dc</color>
+    <color name="turquoise_blue">#02bec4</color>
+    <color name="teal_blue">#0284a8</color>
+    <color name="hospital_green">#499c43</color>
+    <color name="dark">#152330</color>
 
-        <color name="main_rect_color">#152330</color>
-        <color name="login_rect_color">#0284a8</color>
+    // main icons color
+    <color name="main_cardvw_1_1">#DC4F49</color>
+    <color name="main_cardvw_1_2">#6E8893</color>
+    <color name="main_cardvw_2_1">#6D7FFF</color>
+    <color name="main_cardvw_2_2">#55A4A7</color>
+    <color name="main_cardvw_3_1">#E4B705</color>
+    <color name="main_cardvw_3_2">#024B61</color>
+
+    //main textview default
+    <color name="main_text_color">#808080</color>
+
+
+
+
+
+
+    <color name="main_rect_color">#152330</color>
+    <color name="login_rect_color">#0284a8</color>
 
 
 

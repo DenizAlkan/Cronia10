@@ -1,6 +1,7 @@
 package com.app.cronia.cronia10;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
@@ -19,7 +20,8 @@ import android.widget.Toolbar;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public CardView main_cardvw_1_1,main_cardvw_1_2, main_cardvw_2_1, main_cardvw_2_2, main_cardvw_3_1, main_cardvw_3_2;
     public Chronometer main_chr_1_1,main_chr_1_2,main_chr_2_1,main_chr_2_2,main_chr_3_1,main_chr_3_2;
-    public ImageButton main_btn_1_1;
+    public ImageButton main_btn_1_1,main_btn_1_2,main_btn_2_1,main_btn_2_2,main_btn_3_1,main_btn_3_2;
+    public TextView main_txt_1_1,main_txt_1_2,main_txt_2_1,main_txt_2_2,main_txt_3_1,main_txt_3_2;
     public int durum_1_1= 0 , durum_1_2 = 0, durum_2_1 = 0, durum_2_2 = 0 ,durum_3_1 = 0 , durum_3_2 = 0;
     private ImageButton footer_imgbtn_dashboard;
     private ImageButton footer_imgbtn_home;
@@ -59,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //cardviews image buttons tanımlamaları
         main_btn_1_1 = (ImageButton) findViewById(R.id.main_btn_1_1);
+        main_btn_1_2 = (ImageButton) findViewById(R.id.main_btn_1_2);
+        main_btn_2_1 = (ImageButton) findViewById(R.id.main_btn_2_1);
+        main_btn_2_2 = (ImageButton) findViewById(R.id.main_btn_2_2);
+        main_btn_3_1 = (ImageButton) findViewById(R.id.main_btn_3_1);
+        main_btn_3_2 = (ImageButton) findViewById(R.id.main_btn_3_2);
 
         footer_imgbtn_dashboard = (ImageButton) findViewById(R.id.footer_imgbtn_dashboard);
         footer_imgbtn_home = (ImageButton) findViewById(R.id.footer_imgbtn_home);
@@ -69,8 +76,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         footer_imgbtn_home.setImageResource(R.drawable.main_homebutton_on);
         footer_imgbtn_profile.setImageResource(R.drawable.main_profilebutton_off);
 
-
-
+        // main textviews
+        main_txt_1_1 = (TextView) findViewById(R.id.main_txt_1_1);
+        main_txt_1_2 = (TextView) findViewById(R.id.main_txt_1_2);
+        main_txt_2_1 = (TextView) findViewById(R.id.main_txt_2_1);
+        main_txt_2_2 = (TextView) findViewById(R.id.main_txt_2_2);
+        main_txt_3_1 = (TextView) findViewById(R.id.main_txt_3_1);
+        main_txt_3_2 = (TextView) findViewById(R.id.main_txt_3_2);
+        ColorStateList oldColors =    main_txt_1_1.getTextColors();
 
 
         //click listener to the cards
@@ -134,6 +147,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         durum_2_2 = 0;
         durum_3_1 = 0;
         durum_3_2 = 0;
+
+        // default cardview bgcolor
+        main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.white));
+        main_btn_1_1.setImageResource(R.drawable.main_ent_eatingicon);
+        main_cardvw_1_2.setCardBackgroundColor(getResources().getColor(R.color.white));
+        main_btn_1_2.setImageResource(R.drawable.main_ent_readingicon);
+        main_cardvw_2_1.setCardBackgroundColor(getResources().getColor(R.color.white));
+        main_btn_2_1.setImageResource(R.drawable.main_ent_sleepingicon);
+        main_cardvw_2_2.setCardBackgroundColor(getResources().getColor(R.color.white));
+        main_btn_2_2.setImageResource(R.drawable.main_ent_socialicon);
+        main_cardvw_3_1.setCardBackgroundColor(getResources().getColor(R.color.white));
+        main_btn_3_1.setImageResource(R.drawable.main_ent_sporticon);
+        main_cardvw_3_2.setCardBackgroundColor(getResources().getColor(R.color.white));
+        main_btn_3_2.setImageResource(R.drawable.main_ent_travelling);
+
+        //textviews color
+        main_txt_1_1.setTextColor(getResources().getColor(R.color.main_text_color));
+        main_txt_1_2.setTextColor(getResources().getColor(R.color.main_text_color));
+        main_txt_2_1.setTextColor(getResources().getColor(R.color.main_text_color));
+        main_txt_2_2.setTextColor(getResources().getColor(R.color.main_text_color));
+        main_txt_3_1.setTextColor(getResources().getColor(R.color.main_text_color));
+        main_txt_3_2.setTextColor(getResources().getColor(R.color.main_text_color));
+
     }
 
 
@@ -145,54 +181,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
 
             case R.id.main_cardvw_1_1  :
-            case R.id.main_chr_1_1  :
-            case R.id.main_btn_1_1  :
 
-                    if( durum_1_1 == 0) {
-                        resetChr();
-                        main_chr_1_1.setBase(SystemClock.elapsedRealtime());
-                        main_chr_1_1.start();
-                        main_chr_1_1.setVisibility(View.VISIBLE);
-                        durum_1_1 = 1;
-                    }
 
-                    else {
-                        main_chr_1_1.setBase(SystemClock.elapsedRealtime());
-                        main_chr_1_1.stop();
-                        main_chr_1_1.setVisibility(View.INVISIBLE);
-                        resetChr();
-                    }
+                if( durum_1_1 == 0) {
+                    resetChr();
+                    main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                    main_chr_1_1.start();
+                    main_chr_1_1.setVisibility(View.VISIBLE);
+                    main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_1));
+                    main_btn_1_1.setImageResource(R.drawable.main_ent_eatingicon_on);
+                    main_txt_1_1.setTextColor(getResources().getColor(R.color.white));
+                    durum_1_1 = 1;
+                }
+
+                else {
+                    main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                    main_chr_1_1.stop();
+                    main_chr_1_1.setVisibility(View.INVISIBLE);
+                    resetChr();
+                }
 
 
 
                 break;
 
             case R.id.main_cardvw_1_2 :
-                    if ( durum_1_2 == 0)
-                    {
-                        resetChr();
-                        main_chr_1_2.setBase(SystemClock.elapsedRealtime());
-                        main_chr_1_2.start();
-                        main_chr_1_2.setVisibility(View.VISIBLE);
-                        durum_1_2 = 1;
-                    }
-                    else {
-                        main_chr_1_2.setBase(SystemClock.elapsedRealtime());
-                        main_chr_1_2.stop();
-                        main_chr_1_2.setVisibility(View.INVISIBLE);
-                        resetChr();
-                    }
+
+                if ( durum_1_2 == 0)
+                {
+                    resetChr();
+                    main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                    main_chr_1_2.start();
+                    main_chr_1_2.setVisibility(View.VISIBLE);
+                    main_cardvw_1_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_2));
+                    main_btn_1_2.setImageResource(R.drawable.main_ent_readingicon_on);
+                    main_txt_1_2.setTextColor(getResources().getColor(R.color.white));
+                    durum_1_2 = 1;
+                }
+                else {
+                    main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                    main_chr_1_2.stop();
+                    main_chr_1_2.setVisibility(View.INVISIBLE);
+                    resetChr();
+                }
 
 
                 break;
 
             case R.id.main_cardvw_2_1 :
+
                 if ( durum_2_1 == 0)
                 {
                     resetChr();
                     main_chr_2_1.setBase(SystemClock.elapsedRealtime());
                     main_chr_2_1.start();
                     main_chr_2_1.setVisibility(View.VISIBLE);
+                    main_cardvw_2_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_1));
+                    main_btn_2_1.setImageResource(R.drawable.main_ent_sleepingicon_on);
+                    main_txt_2_1.setTextColor(getResources().getColor(R.color.white));
                     durum_2_1 = 1;
                 }
 
@@ -208,12 +254,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.main_cardvw_2_2 :
+
                 if ( durum_2_2 == 0)
                 {
                     resetChr();
                     main_chr_2_2.setBase(SystemClock.elapsedRealtime());
                     main_chr_2_2.start();
                     main_chr_2_2.setVisibility(View.VISIBLE);
+                    main_cardvw_2_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_2));
+                    main_btn_2_2.setImageResource(R.drawable.main_ent_socialicon_on);
+                    main_txt_2_2.setTextColor(getResources().getColor(R.color.white));
                     durum_2_2=1;
                 }
 
@@ -229,12 +279,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.main_cardvw_3_1 :
+
                 if (durum_3_1 == 0)
                 {
                     resetChr();
                     main_chr_3_1.setBase(SystemClock.elapsedRealtime());
                     main_chr_3_1.start();
                     main_chr_3_1.setVisibility(View.VISIBLE);
+                    main_cardvw_3_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_1));
+                    main_btn_3_1.setImageResource(R.drawable.main_ent_sporticon_on);
+                    main_txt_3_1.setTextColor(getResources().getColor(R.color.white));
                     durum_3_1=1;
                 }
 
@@ -250,12 +304,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.main_cardvw_3_2 :
+
                 if (durum_3_2==0)
                 {
                     resetChr();
                     main_chr_3_2.setBase(SystemClock.elapsedRealtime());
                     main_chr_3_2.start();
                     main_chr_3_2.setVisibility(View.VISIBLE);
+                    main_cardvw_3_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_2));
+                    main_btn_3_2.setImageResource(R.drawable.main_ent_travelling_on);
+                    main_txt_3_2.setTextColor(getResources().getColor(R.color.white));
                     durum_3_2=1;
                 }
 
