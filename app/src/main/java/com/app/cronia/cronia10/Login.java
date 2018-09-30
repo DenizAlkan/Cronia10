@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.login_rect_color));
 
-        LoginButton = (Button)findViewById(R.id.button_login);
+        LoginButton = (Button)findViewById(R.id.login_btn_login);
         LoginButton.setOnClickListener(new OnClickListener() {
 
             @Override
