@@ -13,8 +13,8 @@
         android:id="@+id/login_img_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.6"
-        android:background="@drawable/rectangle"
+        android:layout_weight="0.5"
+        android:background="@drawable/login_logo"
         android:orientation="vertical">
 
 
@@ -35,14 +35,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_weight="0.6"
         android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
         </LinearLayout>
@@ -97,7 +97,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
         </LinearLayout>
