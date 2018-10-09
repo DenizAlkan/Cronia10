@@ -9,12 +9,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.cronia.cronia10.Database.DatabaseHelper;
-import com.app.cronia.cronia10.Database.ListDataActivity;
 
 public class Register extends AppCompatActivity {
 
     private static final String TAG = "Register";
-
+ /*
     DatabaseHelper mDatabaseHelper;
     private Button buttonAdd, buttonView;
     private EditText editText;
@@ -31,13 +30,11 @@ public class Register extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newEntry = editText.getText().toString();
-                if (editText.length() != 0) {
-                    AddData(newEntry);
-                    editText.setText("");
-                } else {
-                    toastMessage("You must put something in the text field!");
-                }
+
+
+                    AddData(1,1);
+
+
 
             }
         });
@@ -52,8 +49,8 @@ public class Register extends AppCompatActivity {
 
     }
 
-    public void AddData(String newEntry) {
-        boolean insertData = mDatabaseHelper.addData(newEntry);
+    public void AddData(int item1,int item2) {
+        boolean insertData = mDatabaseHelper.addData(item1,item2);
 
         if (insertData) {
             toastMessage("Data Successfully Inserted!");
@@ -62,11 +59,9 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    /**
-     * customizable toast
-     * @param message
-     */
+
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
+    */
 }

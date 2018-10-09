@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toolbar;
+
+import com.app.cronia.cronia10.Database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public CardView main_cardvw_1_1,main_cardvw_1_2, main_cardvw_2_1, main_cardvw_2_2, main_cardvw_3_1, main_cardvw_3_2;
@@ -175,7 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-
+        final DatabaseHelper mdb = new DatabaseHelper(this);
+        mdb.getWritableDatabase();
 
         switch (view.getId())
         {
@@ -186,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if( durum_1_1 == 0) {
                     resetChr();
                     main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                    mdb.addData(1,1);
                     main_chr_1_1.start();
                     main_chr_1_1.setVisibility(View.VISIBLE);
                     main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_1));
@@ -196,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 else {
                     main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                    mdb.updateName();
                     main_chr_1_1.stop();
                     main_chr_1_1.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -211,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     resetChr();
                     main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                    mdb.addData(2,1);
                     main_chr_1_2.start();
                     main_chr_1_2.setVisibility(View.VISIBLE);
                     main_cardvw_1_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_2));
@@ -220,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else {
                     main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                    mdb.updateName();
                     main_chr_1_2.stop();
                     main_chr_1_2.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -234,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     resetChr();
                     main_chr_2_1.setBase(SystemClock.elapsedRealtime());
+                    mdb.addData(3,1);
                     main_chr_2_1.start();
                     main_chr_2_1.setVisibility(View.VISIBLE);
                     main_cardvw_2_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_1));
@@ -245,6 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_2_1.setBase(SystemClock.elapsedRealtime());
+                    mdb.updateName();
                     main_chr_2_1.stop();
                     main_chr_2_1.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -259,6 +269,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     resetChr();
                     main_chr_2_2.setBase(SystemClock.elapsedRealtime());
+                    mdb.addData(4,1);
                     main_chr_2_2.start();
                     main_chr_2_2.setVisibility(View.VISIBLE);
                     main_cardvw_2_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_2));
@@ -270,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_2_2.setBase(SystemClock.elapsedRealtime());
+                    mdb.updateName();
                     main_chr_2_2.stop();
                     main_chr_2_2.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -284,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     resetChr();
                     main_chr_3_1.setBase(SystemClock.elapsedRealtime());
+                    mdb.addData(5,1);
                     main_chr_3_1.start();
                     main_chr_3_1.setVisibility(View.VISIBLE);
                     main_cardvw_3_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_1));
@@ -295,6 +308,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_3_1.setBase(SystemClock.elapsedRealtime());
+                    mdb.updateName();
                     main_chr_3_1.stop();
                     main_chr_3_1.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -309,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     resetChr();
                     main_chr_3_2.setBase(SystemClock.elapsedRealtime());
+                    mdb.addData(6,1);
                     main_chr_3_2.start();
                     main_chr_3_2.setVisibility(View.VISIBLE);
                     main_cardvw_3_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_2));
@@ -320,6 +335,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_3_2.setBase(SystemClock.elapsedRealtime());
+                    mdb.updateName();
                     main_chr_3_2.stop();
                     main_chr_3_2.setVisibility(View.INVISIBLE);
                     resetChr();

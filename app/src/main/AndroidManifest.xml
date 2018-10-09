@@ -40,8 +40,6 @@
         <activity
             android:name=".Profile">
         </activity>
-        <activity android:name= ".Database.EditDataActivity"></activity>
-        <activity android:name= ".Database.ListDataActivity"></activity>
     </application>
 
 </manifest>
