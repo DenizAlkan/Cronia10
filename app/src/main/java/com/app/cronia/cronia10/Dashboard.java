@@ -1,6 +1,7 @@
 package com.app.cronia.cronia10;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,21 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
-public class Dashboard extends AppCompatActivity implements View.OnClickListener {
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+
+public class Dashboard extends AppCompatActivity implements View.OnClickListener  {
 
     private ImageButton footer_imgbtn_dashboard;
     private ImageButton footer_imgbtn_home;
     private ImageButton footer_imgbtn_profile;
+    PieChart pieChart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +44,39 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         footer_imgbtn_dashboard .setOnClickListener(this);
         footer_imgbtn_home .setOnClickListener(this);
         footer_imgbtn_profile .setOnClickListener(this);
+
+
+        //pie chart
+        pieChart = (PieChart) findViewById(R.id.pie_chart1);
+        pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(0, 0, 0, 0);
+
+        pieChart.setDragDecelerationFrictionCoef(0.99f);
+
+        pieChart.setDrawHoleEnabled(false);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(60f);
+
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+
+        yValues.add(new PieEntry(34f,"Yemek"));
+        yValues.add(new PieEntry(34f,"Kitap Okuma"));
+        yValues.add(new PieEntry(34f,"Uyku"));
+        yValues.add(new PieEntry(34f,"Spor"));
+
+
+        PieDataSet dataSet = new PieDataSet(yValues, "Aktiviteler");
+        dataSet.setSliceSpace(1f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
+
+        PieData data = new PieData((dataSet));
+        data.setValueTextSize(10f);
+        data.setValueTextColor(Color.YELLOW);
+
+        pieChart.setData(data);
 
 
 
