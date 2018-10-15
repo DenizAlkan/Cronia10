@@ -27,6 +27,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String UA_START_DATE = "START_DATE";
     private static final String UA_FINISH_DATE = "FINISH_DATE";
 
+    private static final String TABLE_ACTIONS = "ACTIONS";
+    private static final String A_ID = "ID";
+    private static final String A_NAME = "NAME";
+    private static final String A_IMAGE_URL = "IMAGE_URL";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME+".db", null, 1);
@@ -34,29 +38,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_USER_ACTION + " ("+UA_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        String createTable_UserAction = "CREATE TABLE " + TABLE_USER_ACTION + " ("+UA_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 UA_ACTION_ID +" TINYINT NOT NULL,"+
                 UA_USER_ID +" INT NOT NULL,"+
                 UA_START_DATE+" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,"+
                 UA_FINISH_DATE+" DATETIME)";
 
-        Log.d(TAG, "USER_ACTION tableCreate: query: " + createTable);
-        db.execSQL(createTable);
+        String createTable_Actions = "CREATE TABLE " + TABLE_ACTIONS + " ("+A_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                A_NAME +" TEXT NOT NULL,"+
+                A_IMAGE_URL +" TEXT NULL)";
+
+        Log.d(TAG, "USER_ACTION tableCreate: query: " + createTable_UserAction);
+        db.execSQL(createTable_UserAction);
+        Log.d(TAG, "ACTIONS tableCreate: query: " + createTable_Actions);
+        db.execSQL(createTable_Actions);
+
+        String Actions_Data = "INSERT INTO " + TABLE_ACTIONS + " ("+A_NAME+") " +
+                "VALUES ('Yemek'),('Kitap Okuma'),('Uyku'),('Sosyallik'),('Spor'),('Seyahat')";
+        Log.d(TAG, "ACTIONS tableInsert: query: " + Actions_Data);
+        db.execSQL(Actions_Data);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_ACTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIONS);
+
         onCreate(db);
     }
 
-    public boolean addData(int item,int item2) {
+    public boolean addData(int ActionID,int UserID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UA_ACTION_ID, item);
-        contentValues.put(UA_USER_ID, item2);
+        contentValues.put(UA_ACTION_ID, ActionID);
+        contentValues.put(UA_USER_ID, UserID);
 
-        Log.d(TAG, "addData: Adding " + item + " and " +item2+ " to " + TABLE_USER_ACTION);
+        Log.d(TAG, "addData: Adding " + ActionID + " and " +UserID+ " to " + TABLE_USER_ACTION);
 
         Long result = db.insert(TABLE_USER_ACTION, null, contentValues);
 
@@ -68,10 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    /**
-     * Returns all the data from database
-     * @return
-     */
+
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_USER_ACTION;
@@ -88,28 +102,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void updateName(){
+    public void updateFinishDate(String action){
         //String getDate = DateFormat.getDateTimeInstance().format(new Date());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String getDate=timestamp.toString();
 
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + TABLE_USER_ACTION + " SET " + UA_FINISH_DATE +
-                " = \"" + getDate + "\" WHERE " +UA_ID+ " = ( SELECT  MAX(" +UA_ID+ ") FROM " +TABLE_USER_ACTION+" )" ;
+                " = \"" + getDate + "\" WHERE " +UA_ID+ " = ( SELECT  MAX(" +UA_ID+ ") FROM " +TABLE_USER_ACTION+" WHERE "+UA_ACTION_ID+" = " +
+                "(SELECT "+A_ID+" FROM "+TABLE_ACTIONS+" WHERE "+A_NAME+"='"+action+"'))" ;
         Log.d(TAG, "updateDate: query: " + query);
         db.execSQL(query);
     }
 
-    /*
-    public void deleteName(int id, String name){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DELETE FROM " + TABLE_NAME + " WHERE "
-                + COL1 + " = '" + id + "'" +
-                " AND " + COL2 + " = '" + name + "'";
-        Log.d(TAG, "deleteName: query: " + query);
-        Log.d(TAG, "deleteName: Deleting " + name + " from database.");
-        db.execSQL(query);
-    }
-    */
 }
 
