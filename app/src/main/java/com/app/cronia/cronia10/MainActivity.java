@@ -173,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_txt_3_1.setTextColor(getResources().getColor(R.color.main_text_color));
         main_txt_3_2.setTextColor(getResources().getColor(R.color.main_text_color));
 
+
+
     }
 
 
@@ -201,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 else {
                     main_chr_1_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateName();
+                    mdb.updateFinishDate("1");
                     main_chr_1_1.stop();
                     main_chr_1_1.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -227,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else {
                     main_chr_1_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateName();
+                    mdb.updateFinishDate("2");
                     main_chr_1_2.stop();
                     main_chr_1_2.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -254,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_2_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateName();
+                    mdb.updateFinishDate("3");
                     main_chr_2_1.stop();
                     main_chr_2_1.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -281,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_2_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateName();
+                    mdb.updateFinishDate("4");
                     main_chr_2_2.stop();
                     main_chr_2_2.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -308,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_3_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateName();
+                    mdb.updateFinishDate("5");
                     main_chr_3_1.stop();
                     main_chr_3_1.setVisibility(View.INVISIBLE);
                     resetChr();
@@ -335,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     main_chr_3_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateName();
+                    mdb.updateFinishDate("6");
                     main_chr_3_2.stop();
                     main_chr_3_2.setVisibility(View.INVISIBLE);
                     resetChr();
