@@ -20,6 +20,7 @@ public class Login extends AppCompatActivity {
     //Butonumuz için değişken oluşturuyoruz.
     Button LoginButton;
     TextView txt;
+    TextView txtRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,19 @@ public class Login extends AppCompatActivity {
                 //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
                 Intent go_to_main = new Intent(Login.this, MainActivity.class);
                 startActivity(go_to_main);
+            }
+
+        });
+
+
+        txtRegister = (TextView) findViewById(R.id.txtRegister);
+        txtRegister.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
+                Intent go_to_main2 = new Intent(Login.this, Register.class);
+                startActivity(go_to_main2);
             }
 
         });

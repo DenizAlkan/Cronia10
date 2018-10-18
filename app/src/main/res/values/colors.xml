@@ -33,6 +33,7 @@
 
     <color name="main_rect_color">#152330</color>
     <color name="login_rect_color">#BF032c38</color>
+    <color name="register_rect_color">#BF032c38</color>
 
 
 

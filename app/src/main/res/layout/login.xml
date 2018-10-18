@@ -179,10 +179,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txtRegister"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|center"
                 android:letterSpacing="0.06"
+                android:onClick="onClick"
                 android:text="Hesabınız yok mu? Kayıt olun."
                 android:textColor="@color/white"
                 android:textSize="12.5sp"></TextView>
