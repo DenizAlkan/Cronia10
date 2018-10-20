@@ -16,6 +16,8 @@ import com.app.cronia.cronia10.Database.DatabaseHelper;
 public class Register extends AppCompatActivity {
 
     private static final String TAG = "Register";
+    Button register_btn_next;
+
  /*
     DatabaseHelper mDatabaseHelper;
     private Button buttonAdd, buttonView;
@@ -31,6 +33,19 @@ public class Register extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.login_rect_color));
+
+
+        register_btn_next = (Button)findViewById(R.id.register_btn_next);
+        register_btn_next.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
+                Intent go_to_main = new Intent(Register.this, Register_2.class);
+                startActivity(go_to_main);
+            }
+
+        });
 
     }
        /* editText = (EditText) findViewById(R.id.editText);
