@@ -1,7 +1,7 @@
 package com.app.cronia.cronia10;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,10 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Switch;
 
 import com.app.cronia.cronia10.Adapter.Dashboard_adapter_listview;
-import com.github.mikephil.charting.animation.Easing;
+import com.app.cronia.cronia10.Database.DatabaseHelper;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -23,7 +22,12 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Dashboard extends AppCompatActivity implements View.OnClickListener  {
+import static com.app.cronia.cronia10.Database.DatabaseHelper.A_NAME;
+import static com.app.cronia.cronia10.Database.DatabaseHelper.UA_FINISH_DATE;
+import static com.app.cronia.cronia10.Database.DatabaseHelper.UA_START_DATE;
+
+
+public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton footer_imgbtn_dashboard;
     private ImageButton footer_imgbtn_home;
@@ -32,13 +36,15 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
     //dashboard listview
     private ArrayList<HashMap<String, String>> list;
-    public static final String FIRST_COLUMN="First";
-    public static final String SECOND_COLUMN="Second";
-    public static final String THIRD_COLUMN="Third";
-    public static final String FOURTH_COLUMN="Fourth";
-    public static final String FIFTH_COLUMN="Fifth";
+    public static final String FIRST_COLUMN = "First";
+    public static final String SECOND_COLUMN = "Second";
+    public static final String THIRD_COLUMN = "Third";
+    public static final String FOURTH_COLUMN = "Fourth";
+    public static final String FIFTH_COLUMN = "Fifth";
     private ListView listView;
     private Dashboard_adapter_listview adapter;
+
+    final DatabaseHelper mdb = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +62,9 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
         //click listener toolbar
 
-        footer_imgbtn_dashboard .setOnClickListener(this);
-        footer_imgbtn_home .setOnClickListener(this);
-        footer_imgbtn_profile .setOnClickListener(this);
+        footer_imgbtn_dashboard.setOnClickListener(this);
+        footer_imgbtn_home.setOnClickListener(this);
+        footer_imgbtn_profile.setOnClickListener(this);
 
 
         //pie chart
@@ -75,10 +81,10 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        yValues.add(new PieEntry(34f,"Yemek"));
-        yValues.add(new PieEntry(34f,"Kitap Okuma"));
-        yValues.add(new PieEntry(34f,"Uyku"));
-        yValues.add(new PieEntry(34f,"Spor"));
+        yValues.add(new PieEntry(34f, "Yemek"));
+        yValues.add(new PieEntry(34f, "Kitap Okuma"));
+        yValues.add(new PieEntry(34f, "Uyku"));
+        yValues.add(new PieEntry(34f, "Spor"));
 
 
         PieDataSet dataSet = new PieDataSet(yValues, "Aktiviteler");
@@ -96,12 +102,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
 
         //dashboard listview
-        list=new ArrayList<HashMap<String,String>>();
-        listView=(ListView)findViewById(R.id.dashboard_listview);
-        adapter=new Dashboard_adapter_listview(this, list);
+        list = new ArrayList<HashMap<String, String>>();
+        listView = (ListView) findViewById(R.id.dashboard_listview);
+        adapter = new Dashboard_adapter_listview(this, list);
 
         new VeriGetir().execute();
-
 
 
     }
@@ -110,10 +115,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         // TODO Auto-generated method stub
 
 
-
     }
 
+
     private class VeriGetir extends AsyncTask<Void, Void, Void> {
+
 
         @Override
         protected void onPreExecute() {
@@ -123,32 +129,19 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         }
 
 
-
         @Override
         protected Void doInBackground(Void... voids) {
 
+            Cursor cursor = mdb.Listele();
 
-            for (int i=0; i<15; i++)
-            {
-                String firma = "ebe";
-                String kalkis = "nin";
-                String varis = "a";
-                String saat = "m";
-
-
-                HashMap<String,String> hashmap=new HashMap<String, String>();
-                hashmap.put(FIRST_COLUMN, firma);
-                hashmap.put(SECOND_COLUMN, kalkis);
-                hashmap.put(THIRD_COLUMN, varis);
-                hashmap.put(FOURTH_COLUMN, saat);
-
-                list.add(hashmap);
-
+            while (cursor.moveToNext()){
+                HashMap<String,String> liste = new HashMap<>();
+                liste.put(FIRST_COLUMN,cursor.getString(0));
+                liste.put(SECOND_COLUMN,cursor.getString(1));
+                liste.put(THIRD_COLUMN,cursor.getString(2));
+                liste.put(FOURTH_COLUMN,cursor.getString(3));
+                list.add(liste);
             }
-
-
-
-
 
 
 
@@ -166,35 +159,37 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             listView.setAdapter(adapter);
 
 
-
         }
     }
-
-
-
-
 
 
     @Override
     public void onClick(View view) {
 
-        switch (view.getId())
-        {
-            case R.id.footer_imgbtn_home :
+        switch (view.getId()) {
+            case R.id.footer_imgbtn_home:
 
-                Intent home=new Intent();
-                home.setClass(Dashboard.this,MainActivity.class);
+                Intent home = new Intent();
+                home.setClass(Dashboard.this, MainActivity.class);
                 startActivity(home);
 
                 break;
 
-            case R.id.footer_imgbtn_profile :
+            case R.id.footer_imgbtn_profile:
 
-                Intent profile=new Intent();
-                profile.setClass(Dashboard.this,Profile.class);
+                Intent profile = new Intent();
+                profile.setClass(Dashboard.this, Profile.class);
                 startActivity(profile);
 
                 break;
         }
     }
+
+
+
+
+
+
+
+
 }

@@ -3,14 +3,11 @@ package com.app.cronia.cronia10.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by User on 2/28/2017.
@@ -18,21 +15,23 @@ import java.util.HashMap;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = "DatabaseHelper";
+    public static final String TAG = "DatabaseHelper";
 
-    private static final String DATABASE_NAME = "CroniaDB";
+    public static final String DATABASE_NAME = "CroniaDB";
 
-    private static final String TABLE_USER_ACTION = "USER_ACTION";
-    private static final String UA_ID = "ID";
-    private static final String UA_ACTION_ID = "ACTION_ID";
-    private static final String UA_USER_ID = "USER_ID";
-    private static final String UA_START_DATE = "START_DATE";
-    private static final String UA_FINISH_DATE = "FINISH_DATE";
+    public static final String TABLE_USER_ACTION = "USER_ACTION";
+    public static final String UA_ID = "ID";
+    public static final String UA_ACTION_ID = "ACTION_ID";
+    public static final String UA_USER_ID = "USER_ID";
+    public static final String UA_START_DATE = "START_DATE";
+    public static final String UA_FINISH_DATE = "FINISH_DATE";
 
-    private static final String TABLE_ACTIONS = "ACTIONS";
-    private static final String A_ID = "ID";
-    private static final String A_NAME = "NAME";
-    private static final String A_IMAGE_URL = "IMAGE_URL";
+    public static final String TABLE_ACTIONS = "ACTIONS";
+    public static final String A_ID = "ID";
+    public static final String A_NAME = "NAME";
+    public static final String A_IMAGE_URL = "IMAGE_URL";
+
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME+".db", null, 1);
@@ -59,6 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "VALUES ('Yemek'),('Kitap Okuma'),('Uyku'),('Sosyallik'),('Spor'),('Seyahat')";
         Log.d(TAG, "ACTIONS tableInsert: query: " + Actions_Data);
         db.execSQL(Actions_Data);
+
+
     }
 
     @Override
@@ -117,32 +118,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public void Listelex (String action) {
-        String query = "SELECT FROM "+TABLE_USER_ACTION+"AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
-                " ON ua."+UA_ACTION_ID+" = a."+A_ID+" WHERE a."+A_NAME+" = "+action;
-
-        Log.d(TAG, "Listele: query: " + query);
 
 
-    }
-
-    public ArrayList<HashMap<String, String>> Listele(){
+    public Cursor Listele(){
         SQLiteDatabase db = this.getWritableDatabase();
-        ArrayList<HashMap<String, String>> actionList = new ArrayList<>();
-        String query = "SELECT "+UA_START_DATE+","+UA_FINISH_DATE+",Cast ((\n" +
+
+        String query = "SELECT "+A_NAME+","+UA_START_DATE+","+UA_FINISH_DATE+",Cast ((\n" +
                 "    JulianDay("+UA_FINISH_DATE+") - JulianDay("+UA_START_DATE+")\n" +
-                ") * 24 * 60 As Integer) AS Toplam FROM "+ TABLE_USER_ACTION+"AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
+                ") * 24 * 60 As Integer) AS Toplam FROM "+ TABLE_USER_ACTION+" AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
                 " ON ua."+UA_ACTION_ID+" = a."+A_ID;
+        Log.d(TAG, "Listele: query: " + query);
         Cursor cursor = db.rawQuery(query,null);
-        while (cursor.moveToNext()){
-            HashMap<String,String> list = new HashMap<>();
-            list.put("action",cursor.getString(cursor.getColumnIndex(A_NAME)));
-            list.put("start_date",cursor.getString(cursor.getColumnIndex(UA_START_DATE)));
-            list.put("finish_date",cursor.getString(cursor.getColumnIndex(UA_FINISH_DATE)));
-            list.put("toplam",cursor.getString(cursor.getColumnIndex("Toplam")));
-            actionList.add(list);
-        }
-        return  actionList;
+
+        return  cursor;
     }
 
 }
