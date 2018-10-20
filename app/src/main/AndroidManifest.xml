@@ -35,6 +35,9 @@
             android:name=".Register">
         </activity>
         <activity
+            android:name=".Register_2">
+        </activity>
+        <activity
             android:name=".Dashboard">
         </activity>
         <activity

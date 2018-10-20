@@ -52,8 +52,7 @@
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.08"
                             android:lineSpacingMultiplier="1.41"
-                            android:text="Merhaba,
-Ben Cronia!"
+                            android:text="Kişisel Bilgiler"
                             android:textColor="@color/white"
                             android:textSize="23.7sp"
                             android:textStyle="bold" />
@@ -62,9 +61,8 @@ Ben Cronia!"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.06"
-                            android:text="Kendini tanıtır mısın?"
-                            android:textColor="@color/white"
-                            android:textSize="17.3sp" />
+                            android:text="Neden Cronia? Anlatsana biraz."
+                            android:textColor="@color/white" />
 
 
                     </LinearLayout>
@@ -103,68 +101,106 @@ Ben Cronia!"
             android:orientation="vertical">
 
 
-
-
-
-            <EditText
-                android:id="@+id/editText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableBottom="@drawable/login_divider_username"
+                    android:drawableLeft="@drawable/login_icon_username"
+                    android:drawablePadding="20dp"
+                    android:ems="10"
+                    android:hint="Adı"
+                    android:inputType="textPersonName"
+                    android:letterSpacing="0.01"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="13.5sp" />
+
+                <EditText
+                    android:id="@+id/editText99"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableBottom="@drawable/login_divider_username"
+                    android:drawableLeft="@drawable/login_icon_username"
+                    android:drawablePadding="20dp"
+                    android:ems="10"
+                    android:hint="Soyadı"
+                    android:inputType="textPersonName"
+                    android:letterSpacing="0.01"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="13.5sp" />
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
                 android:background="@null"
                 android:drawableBottom="@drawable/login_divider_username"
-                android:drawableLeft="@drawable/login_icon_username"
-                android:ems="10"
+                android:drawableLeft="@drawable/register_icon_birthday"
                 android:drawablePadding="20dp"
-                android:hint="Kullanıcı Adı"
-                android:textColorHint="@color/white"
-                android:inputType="textPersonName"
+                android:ems="10"
+                android:hint="Doğum Tarihi"
+                android:inputType="date"
                 android:letterSpacing="0.01"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="13.5sp" />
 
-
-            <EditText
-                android:id="@+id/editText3"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@null"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:drawableBottom="@drawable/login_divider_username"
-                android:drawableLeft="@drawable/login_icon_username"
-                android:drawablePadding="20dp"
-                android:hint="E-mail"
-                android:textColorHint="@color/white"
-                android:letterSpacing="0.01"
-                android:textColor="@color/white"
-                android:textSize="13.5sp"
                 android:layout_weight="0.2"
-                android:ems="10"
-                android:inputType="textEmailAddress" />
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="match_parent"
-                android:drawableBottom="@drawable/login_divider_pass"
-                android:drawableLeft="@drawable/login_icon_pass"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:textSize="13.5sp"
-                android:textColor="@color/white"
-                android:letterSpacing="0.01"
-                android:background="@null"
-                android:hint="Şifre"
-                android:drawablePadding="20dp"
-                android:textColorHint="@color/white"
-                android:ems="10"
-                android:inputType="textPassword" />
+                <TextView
+                    android:id="@+id/register_txt_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableBottom="@drawable/login_divider_username"
+                    android:drawableLeft="@drawable/register_icon_gender"
+                    android:drawablePadding="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Kadın"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="13.5sp" />
 
+                <Switch
+                    android:id="@+id/register_switch_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:switchMinWidth="70dp"
+                    android:layout_weight="1" />
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -219,11 +255,11 @@ Ben Cronia!"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/register_btn_next"
+                android:id="@+id/login_btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:text="İLERİ" />
+                android:text="BİTİR" />
         </LinearLayout>
 
         <LinearLayout
