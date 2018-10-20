@@ -126,16 +126,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<HashMap<String, String>> Listele(String action){
+    public ArrayList<HashMap<String, String>> Listele(){
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> actionList = new ArrayList<>();
         String query = "SELECT "+UA_START_DATE+","+UA_FINISH_DATE+",Cast ((\n" +
                 "    JulianDay("+UA_FINISH_DATE+") - JulianDay("+UA_START_DATE+")\n" +
                 ") * 24 * 60 As Integer) AS Toplam FROM "+ TABLE_USER_ACTION+"AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
-                " ON ua."+UA_ACTION_ID+" = a."+A_ID+" WHERE a."+A_NAME+" = "+action;
+                " ON ua."+UA_ACTION_ID+" = a."+A_ID;
         Cursor cursor = db.rawQuery(query,null);
         while (cursor.moveToNext()){
             HashMap<String,String> list = new HashMap<>();
+            list.put("action",cursor.getString(cursor.getColumnIndex(A_NAME)));
             list.put("start_date",cursor.getString(cursor.getColumnIndex(UA_START_DATE)));
             list.put("finish_date",cursor.getString(cursor.getColumnIndex(UA_FINISH_DATE)));
             list.put("toplam",cursor.getString(cursor.getColumnIndex("Toplam")));
