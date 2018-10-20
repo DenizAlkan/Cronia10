@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by User on 2/28/2017.
@@ -93,14 +95,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-
+    /*
     public Cursor getItemID(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT  MAX(" +UA_ID+ ") FROM " +TABLE_USER_ACTION;
         Cursor data = db.rawQuery(query, null);
         return data;
     }
-
+    */
 
     public void updateFinishDate(String action){
         //String getDate = DateFormat.getDateTimeInstance().format(new Date());
@@ -113,6 +115,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "(SELECT "+A_ID+" FROM "+TABLE_ACTIONS+" WHERE "+A_NAME+"='"+action+"'))" ;
         Log.d(TAG, "updateDate: query: " + query);
         db.execSQL(query);
+    }
+
+    public void Listelex (String action) {
+        String query = "SELECT FROM "+TABLE_USER_ACTION+"AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
+                " ON ua."+UA_ACTION_ID+" = a."+A_ID+" WHERE a."+A_NAME+" = "+action;
+
+        Log.d(TAG, "Listele: query: " + query);
+
+
+    }
+
+    public ArrayList<HashMap<String, String>> Listele(String action){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<HashMap<String, String>> actionList = new ArrayList<>();
+        String query = "SELECT "+UA_START_DATE+","+UA_FINISH_DATE+",Cast ((\n" +
+                "    JulianDay("+UA_FINISH_DATE+") - JulianDay("+UA_START_DATE+")\n" +
+                ") * 24 * 60 As Integer) AS Toplam FROM "+ TABLE_USER_ACTION+"AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
+                " ON ua."+UA_ACTION_ID+" = a."+A_ID+" WHERE a."+A_NAME+" = "+action;
+        Cursor cursor = db.rawQuery(query,null);
+        while (cursor.moveToNext()){
+            HashMap<String,String> list = new HashMap<>();
+            list.put("start_date",cursor.getString(cursor.getColumnIndex(UA_START_DATE)));
+            list.put("finish_date",cursor.getString(cursor.getColumnIndex(UA_FINISH_DATE)));
+            list.put("toplam",cursor.getString(cursor.getColumnIndex("Toplam")));
+            actionList.add(list);
+        }
+        return  actionList;
     }
 
 }
