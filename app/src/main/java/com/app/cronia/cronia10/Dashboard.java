@@ -79,12 +79,22 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setTransparentCircleRadius(60f);
 
+
+
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        yValues.add(new PieEntry(34f, "Yemek"));
-        yValues.add(new PieEntry(34f, "Kitap Okuma"));
-        yValues.add(new PieEntry(34f, "Uyku"));
-        yValues.add(new PieEntry(34f, "Spor"));
+        Cursor cursor = mdb.Listele();
+
+        while (cursor.moveToNext()){
+
+            int value = Integer.parseInt(cursor.getString(3));
+
+            yValues.add(new PieEntry(value, cursor.getString(0)));
+
+        }
+
+
+
 
 
         PieDataSet dataSet = new PieDataSet(yValues, "Aktiviteler");
