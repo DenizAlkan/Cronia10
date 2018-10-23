@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.app.cronia.cronia10.Database.DatabaseHelper;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ImageButton main_btn_1_1,main_btn_1_2,main_btn_2_1,main_btn_2_2,main_btn_3_1,main_btn_3_2;
     public TextView main_txt_1_1,main_txt_1_2,main_txt_2_1,main_txt_2_2,main_txt_3_1,main_txt_3_2;
     public int durum_1_1= 0 , durum_1_2 = 0, durum_2_1 = 0, durum_2_2 = 0 ,durum_3_1 = 0 , durum_3_2 = 0;
+    public int etklinliksayisi=0;
     private ImageButton footer_imgbtn_dashboard;
     private ImageButton footer_imgbtn_home;
     private ImageButton footer_imgbtn_profile;
@@ -118,64 +120,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void resetChr()
-    {
-        main_chr_1_1.setBase(SystemClock.elapsedRealtime());
-        main_chr_1_1.stop();
-        main_chr_1_1.setVisibility(View.INVISIBLE);
-        //
-        main_chr_1_2.setBase(SystemClock.elapsedRealtime());
-        main_chr_1_2.stop();
-        main_chr_1_2.setVisibility(View.INVISIBLE);
-        //
-        main_chr_2_1.setBase(SystemClock.elapsedRealtime());
-        main_chr_2_1.stop();
-        main_chr_2_1.setVisibility(View.INVISIBLE);
-        //
-        main_chr_2_2.setBase(SystemClock.elapsedRealtime());
-        main_chr_2_2.stop();
-        main_chr_2_2.setVisibility(View.INVISIBLE);
-        //
-        main_chr_3_1.setBase(SystemClock.elapsedRealtime());
-        main_chr_3_1.stop();
-        main_chr_3_1.setVisibility(View.INVISIBLE);
-        //
-        main_chr_3_2.setBase(SystemClock.elapsedRealtime());
-        main_chr_3_2.stop();
-        main_chr_3_2.setVisibility(View.INVISIBLE);
-        //durumlar
-        durum_1_1 = 0;
-        durum_1_2 = 0;
-        durum_2_1 = 0;
-        durum_2_2 = 0;
-        durum_3_1 = 0;
-        durum_3_2 = 0;
-
-        // default cardview bgcolor
-        main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.white));
-        main_btn_1_1.setImageResource(R.drawable.main_ent_eatingicon);
-        main_cardvw_1_2.setCardBackgroundColor(getResources().getColor(R.color.white));
-        main_btn_1_2.setImageResource(R.drawable.main_ent_readingicon);
-        main_cardvw_2_1.setCardBackgroundColor(getResources().getColor(R.color.white));
-        main_btn_2_1.setImageResource(R.drawable.main_ent_sleepingicon);
-        main_cardvw_2_2.setCardBackgroundColor(getResources().getColor(R.color.white));
-        main_btn_2_2.setImageResource(R.drawable.main_ent_socialicon);
-        main_cardvw_3_1.setCardBackgroundColor(getResources().getColor(R.color.white));
-        main_btn_3_1.setImageResource(R.drawable.main_ent_sporticon);
-        main_cardvw_3_2.setCardBackgroundColor(getResources().getColor(R.color.white));
-        main_btn_3_2.setImageResource(R.drawable.main_ent_travelling);
-
-        //textviews color
-        main_txt_1_1.setTextColor(getResources().getColor(R.color.main_text_color));
-        main_txt_1_2.setTextColor(getResources().getColor(R.color.main_text_color));
-        main_txt_2_1.setTextColor(getResources().getColor(R.color.main_text_color));
-        main_txt_2_2.setTextColor(getResources().getColor(R.color.main_text_color));
-        main_txt_3_1.setTextColor(getResources().getColor(R.color.main_text_color));
-        main_txt_3_2.setTextColor(getResources().getColor(R.color.main_text_color));
-
-
-
-    }
 
 
     @Override
@@ -188,26 +132,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.main_cardvw_1_1  :
 
+                if ( etklinliksayisi <3 || durum_1_1 == 1)
+                {
+                    if( durum_1_1 == 0) {
 
-                if( durum_1_1 == 0) {
-                    resetChr();
-                    main_chr_1_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.addData(1,1);
-                    main_chr_1_1.start();
-                    main_chr_1_1.setVisibility(View.VISIBLE);
-                    main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_1));
-                    main_btn_1_1.setImageResource(R.drawable.main_ent_eatingicon_on);
-                    main_txt_1_1.setTextColor(getResources().getColor(R.color.white));
-                    durum_1_1 = 1;
+                        main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                        mdb.addData(1,1);
+                        main_chr_1_1.start();
+                        main_chr_1_1.setVisibility(View.VISIBLE);
+                        main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_1));
+                        main_btn_1_1.setImageResource(R.drawable.main_ent_eatingicon_on);
+                        main_txt_1_1.setTextColor(getResources().getColor(R.color.white));
+                        durum_1_1 = 1;
+                        etklinliksayisi++;
+                    }
+
+                    else {
+                        main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                        mdb.updateFinishDate("Yemek");
+                        main_chr_1_1.stop();
+                        main_chr_1_1.setVisibility(View.INVISIBLE);
+                        etklinliksayisi--;
+                        durum_1_1 = 0;
+                        main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.white));
+                        main_btn_1_1.setImageResource(R.drawable.main_ent_eatingicon);
+                        main_txt_1_1.setTextColor(getResources().getColor(R.color.main_text_color));
+
+                    }
                 }
 
-                else {
-                    main_chr_1_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateFinishDate("Yemek");
-                    main_chr_1_1.stop();
-                    main_chr_1_1.setVisibility(View.INVISIBLE);
-                    resetChr();
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Aynı anda 3'den fazla etkinlik çalıştıramazsın ne yazik ki :(", Toast.LENGTH_LONG).show();
                 }
+
+
+
 
 
 
@@ -215,133 +175,208 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.main_cardvw_1_2 :
 
-                if ( durum_1_2 == 0)
+                if ( etklinliksayisi <3 || durum_1_2 == 1)
                 {
-                    resetChr();
-                    main_chr_1_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.addData(2,1);
-                    main_chr_1_2.start();
-                    main_chr_1_2.setVisibility(View.VISIBLE);
-                    main_cardvw_1_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_2));
-                    main_btn_1_2.setImageResource(R.drawable.main_ent_readingicon_on);
-                    main_txt_1_2.setTextColor(getResources().getColor(R.color.white));
-                    durum_1_2 = 1;
+                    if ( durum_1_2 == 0)
+                    {
+
+                        main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                        mdb.addData(2,1);
+                        main_chr_1_2.start();
+                        main_chr_1_2.setVisibility(View.VISIBLE);
+                        main_cardvw_1_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_1_2));
+                        main_btn_1_2.setImageResource(R.drawable.main_ent_readingicon_on);
+                        main_txt_1_2.setTextColor(getResources().getColor(R.color.white));
+                        durum_1_2 = 1;
+                        etklinliksayisi++;
+                    }
+                    else {
+                        main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                        mdb.updateFinishDate("Kitap Okuma");
+                        main_chr_1_2.stop();
+                        main_chr_1_2.setVisibility(View.INVISIBLE);
+                        etklinliksayisi--;
+                        durum_1_2 = 0;
+                        main_cardvw_1_2.setCardBackgroundColor(getResources().getColor(R.color.white));
+                        main_btn_1_2.setImageResource(R.drawable.main_ent_readingicon);
+                        main_txt_1_2.setTextColor(getResources().getColor(R.color.main_text_color));
+                    }
                 }
-                else {
-                    main_chr_1_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateFinishDate("Kitap Okuma");
-                    main_chr_1_2.stop();
-                    main_chr_1_2.setVisibility(View.INVISIBLE);
-                    resetChr();
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Aynı anda 3'den fazla etkinlik çalıştıramazsın ne yazik ki :(", Toast.LENGTH_LONG).show();
                 }
+
+
 
 
                 break;
 
             case R.id.main_cardvw_2_1 :
 
-                if ( durum_2_1 == 0)
+                if ( etklinliksayisi <3 || durum_2_1 == 1)
                 {
-                    resetChr();
-                    main_chr_2_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.addData(3,1);
-                    main_chr_2_1.start();
-                    main_chr_2_1.setVisibility(View.VISIBLE);
-                    main_cardvw_2_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_1));
-                    main_btn_2_1.setImageResource(R.drawable.main_ent_sleepingicon_on);
-                    main_txt_2_1.setTextColor(getResources().getColor(R.color.white));
-                    durum_2_1 = 1;
-                }
+                    if ( durum_2_1 == 0)
+                    {
 
+                        main_chr_2_1.setBase(SystemClock.elapsedRealtime());
+                        mdb.addData(3,1);
+                        main_chr_2_1.start();
+                        main_chr_2_1.setVisibility(View.VISIBLE);
+                        main_cardvw_2_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_1));
+                        main_btn_2_1.setImageResource(R.drawable.main_ent_sleepingicon_on);
+                        main_txt_2_1.setTextColor(getResources().getColor(R.color.white));
+                        durum_2_1 = 1;
+                        etklinliksayisi++;
+                    }
+
+                    else
+                    {
+                        main_chr_2_1.setBase(SystemClock.elapsedRealtime());
+                        mdb.updateFinishDate("Uyku");
+                        main_chr_2_1.stop();
+                        main_chr_2_1.setVisibility(View.INVISIBLE);
+                        etklinliksayisi--;
+                        durum_2_1 = 0;
+                        main_cardvw_2_1.setCardBackgroundColor(getResources().getColor(R.color.white));
+                        main_btn_2_1.setImageResource(R.drawable.main_ent_sleepingicon);
+                        main_txt_2_1.setTextColor(getResources().getColor(R.color.main_text_color));
+
+                    }
+                }
                 else
                 {
-                    main_chr_2_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateFinishDate("Uyku");
-                    main_chr_2_1.stop();
-                    main_chr_2_1.setVisibility(View.INVISIBLE);
-                    resetChr();
+                    Toast.makeText(getApplicationContext(),"Aynı anda 3'den fazla etkinlik çalıştıramazsın ne yazik ki :(", Toast.LENGTH_LONG).show();
                 }
+
+
 
 
                 break;
 
             case R.id.main_cardvw_2_2 :
 
-                if ( durum_2_2 == 0)
+                if ( etklinliksayisi <3 || durum_2_2 == 1)
                 {
-                    resetChr();
-                    main_chr_2_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.addData(4,1);
-                    main_chr_2_2.start();
-                    main_chr_2_2.setVisibility(View.VISIBLE);
-                    main_cardvw_2_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_2));
-                    main_btn_2_2.setImageResource(R.drawable.main_ent_socialicon_on);
-                    main_txt_2_2.setTextColor(getResources().getColor(R.color.white));
-                    durum_2_2=1;
-                }
+                    if ( durum_2_2 == 0)
+                    {
 
+                        main_chr_2_2.setBase(SystemClock.elapsedRealtime());
+                        mdb.addData(4,1);
+                        main_chr_2_2.start();
+                        main_chr_2_2.setVisibility(View.VISIBLE);
+                        main_cardvw_2_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_2_2));
+                        main_btn_2_2.setImageResource(R.drawable.main_ent_socialicon_on);
+                        main_txt_2_2.setTextColor(getResources().getColor(R.color.white));
+                        durum_2_2=1;
+                        etklinliksayisi++;
+                    }
+
+                    else
+                    {
+                        main_chr_2_2.setBase(SystemClock.elapsedRealtime());
+                        mdb.updateFinishDate("Sosyallik");
+                        main_chr_2_2.stop();
+                        main_chr_2_2.setVisibility(View.INVISIBLE);
+                        etklinliksayisi--;
+                        durum_2_2=0;
+                        main_cardvw_2_2.setCardBackgroundColor(getResources().getColor(R.color.white));
+                        main_btn_2_2.setImageResource(R.drawable.main_ent_socialicon);
+                        main_txt_2_2.setTextColor(getResources().getColor(R.color.main_text_color));
+
+                    }
+                }
                 else
                 {
-                    main_chr_2_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateFinishDate("Sosyallik");
-                    main_chr_2_2.stop();
-                    main_chr_2_2.setVisibility(View.INVISIBLE);
-                    resetChr();
+                    Toast.makeText(getApplicationContext(),"Aynı anda 3'den fazla etkinlik çalıştıramazsın ne yazik ki :(", Toast.LENGTH_LONG).show();
                 }
+
+
 
 
                 break;
 
             case R.id.main_cardvw_3_1 :
 
-                if (durum_3_1 == 0)
+                if ( etklinliksayisi <3 || durum_3_1 == 1)
                 {
-                    resetChr();
-                    main_chr_3_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.addData(5,1);
-                    main_chr_3_1.start();
-                    main_chr_3_1.setVisibility(View.VISIBLE);
-                    main_cardvw_3_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_1));
-                    main_btn_3_1.setImageResource(R.drawable.main_ent_sporticon_on);
-                    main_txt_3_1.setTextColor(getResources().getColor(R.color.white));
-                    durum_3_1=1;
-                }
+                    if (durum_3_1 == 0)
+                    {
 
+                        main_chr_3_1.setBase(SystemClock.elapsedRealtime());
+                        mdb.addData(5,1);
+                        main_chr_3_1.start();
+                        main_chr_3_1.setVisibility(View.VISIBLE);
+                        main_cardvw_3_1.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_1));
+                        main_btn_3_1.setImageResource(R.drawable.main_ent_sporticon_on);
+                        main_txt_3_1.setTextColor(getResources().getColor(R.color.white));
+                        durum_3_1=1;
+                        etklinliksayisi++;
+
+                    }
+
+                    else
+                    {
+                        main_chr_3_1.setBase(SystemClock.elapsedRealtime());
+                        mdb.updateFinishDate("Spor");
+                        main_chr_3_1.stop();
+                        main_chr_3_1.setVisibility(View.INVISIBLE);
+                        etklinliksayisi--;
+                        durum_3_1=0;
+                        main_cardvw_3_1.setCardBackgroundColor(getResources().getColor(R.color.white));
+                        main_btn_3_1.setImageResource(R.drawable.main_ent_sporticon);
+                        main_txt_3_1.setTextColor(getResources().getColor(R.color.main_text_color));
+
+                    }
+                }
                 else
                 {
-                    main_chr_3_1.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateFinishDate("Spor");
-                    main_chr_3_1.stop();
-                    main_chr_3_1.setVisibility(View.INVISIBLE);
-                    resetChr();
+                    Toast.makeText(getApplicationContext(),"Aynı anda 3'den fazla etkinlik çalıştıramazsın ne yazik ki :(", Toast.LENGTH_LONG).show();
                 }
+
+
 
 
                 break;
 
             case R.id.main_cardvw_3_2 :
 
-                if (durum_3_2==0)
+                if ( etklinliksayisi <3 || durum_3_2==1)
                 {
-                    resetChr();
-                    main_chr_3_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.addData(6,1);
-                    main_chr_3_2.start();
-                    main_chr_3_2.setVisibility(View.VISIBLE);
-                    main_cardvw_3_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_2));
-                    main_btn_3_2.setImageResource(R.drawable.main_ent_travelling_on);
-                    main_txt_3_2.setTextColor(getResources().getColor(R.color.white));
-                    durum_3_2=1;
-                }
+                    if (durum_3_2==0)
+                    {
 
+                        main_chr_3_2.setBase(SystemClock.elapsedRealtime());
+                        mdb.addData(6,1);
+                        main_chr_3_2.start();
+                        main_chr_3_2.setVisibility(View.VISIBLE);
+                        main_cardvw_3_2.setCardBackgroundColor(getResources().getColor(R.color.main_cardvw_3_2));
+                        main_btn_3_2.setImageResource(R.drawable.main_ent_travelling_on);
+                        main_txt_3_2.setTextColor(getResources().getColor(R.color.white));
+                        durum_3_2=1;
+                        etklinliksayisi++;
+                    }
+
+                    else
+                    {
+                        main_chr_3_2.setBase(SystemClock.elapsedRealtime());
+                        mdb.updateFinishDate("Seyahat");
+                        main_chr_3_2.stop();
+                        main_chr_3_2.setVisibility(View.INVISIBLE);
+                        etklinliksayisi--;
+                        durum_3_2=0;
+                        main_cardvw_3_2.setCardBackgroundColor(getResources().getColor(R.color.white));
+                        main_btn_3_2.setImageResource(R.drawable.main_ent_travelling);
+                        main_txt_3_2.setTextColor(getResources().getColor(R.color.main_text_color));
+
+                    }
+                }
                 else
                 {
-                    main_chr_3_2.setBase(SystemClock.elapsedRealtime());
-                    mdb.updateFinishDate("Seyahat");
-                    main_chr_3_2.stop();
-                    main_chr_3_2.setVisibility(View.INVISIBLE);
-                    resetChr();
+                    Toast.makeText(getApplicationContext(),"Aynı anda 3'den fazla etkinlik çalıştıramazsın ne yazik ki :(", Toast.LENGTH_LONG).show();
                 }
+
+
 
 
                 break;
