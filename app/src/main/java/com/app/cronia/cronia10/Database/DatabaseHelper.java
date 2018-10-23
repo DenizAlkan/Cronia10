@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import java.sql.Timestamp;
@@ -32,7 +33,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String A_IMAGE_URL = "IMAGE_URL";
 
 
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME+".db", null, 1);
     }
@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createTable_UserAction = "CREATE TABLE " + TABLE_USER_ACTION + " ("+UA_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 UA_ACTION_ID +" TINYINT NOT NULL,"+
                 UA_USER_ID +" INT NOT NULL,"+
-                UA_START_DATE+" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,"+
+                UA_START_DATE+" DATETIME NOT NULL DEFAULT (DATETIME('now','localtime')),"+
                 UA_FINISH_DATE+" DATETIME)";
 
         String createTable_Actions = "CREATE TABLE " + TABLE_ACTIONS + " ("+A_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "addData: Adding " + ActionID + " and " +UserID+ " to " + TABLE_USER_ACTION);
 
         Long result = db.insert(TABLE_USER_ACTION, null, contentValues);
-
+        Log.d(TAG,"insert result :"+result);
         //if date as inserted incorrectly it will return -1
         if (result == -1) {
             return false;
@@ -125,12 +125,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String query = "SELECT "+A_NAME+","+UA_START_DATE+","+UA_FINISH_DATE+",Cast ((\n" +
                 "    JulianDay("+UA_FINISH_DATE+") - JulianDay("+UA_START_DATE+")\n" +
-                ") * 24 * 60 As Integer) AS Toplam FROM "+ TABLE_USER_ACTION+" AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
+                ") * 24 * 60 * 60 As Integer) AS Toplam FROM "+ TABLE_USER_ACTION+" AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
                 " ON ua."+UA_ACTION_ID+" = a."+A_ID;
         Log.d(TAG, "Listele: query: " + query);
         Cursor cursor = db.rawQuery(query,null);
 
         return  cursor;
+    }
+
+    public String maxAction;
+    public int maxTime;
+
+    public String getMaxAction() {
+        return maxAction;
+    }
+
+    public void setMaxAction(String maxAction) {
+        this.maxAction = maxAction;
+    }
+
+    public int getMaxTime() {
+        return maxTime;
+    }
+
+    public void setMaxTime(int maxTime) {
+        this.maxTime = maxTime;
+    }
+
+    public void maxActionDetail (){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "WITH CTE AS (SELECT " + A_NAME + " ,SUM(Cast ((JulianDay(" + UA_FINISH_DATE + ") - JulianDay(" + UA_START_DATE + "))" +
+                " * 24 * 60 * 60 As Integer)) AS Toplam FROM " + TABLE_USER_ACTION + " AS ua INNER JOIN " + TABLE_ACTIONS + " AS a " +
+                "ON ua." + UA_ACTION_ID + " = a." + A_ID + " GROUP BY " + A_NAME + ") SELECT "+A_NAME+",Toplam FROM CTE WHERE Toplam = (SELECT MAX(Toplam) FROM CTE ) LIMIT 1";
+
+        Log.d(TAG, "maxActionDetail: query: " + query);
+
+        Cursor cursor = db.rawQuery(query,null);
+        while (cursor.moveToNext()) {
+            setMaxAction(cursor.getString(0));
+            setMaxTime(cursor.getInt(1));
+        }
+        cursor.close();
+        Log.d(TAG,"En çok yapılan etkinlik: "+getMaxAction()+",süresi: "+getMaxTime());
     }
 
 }
