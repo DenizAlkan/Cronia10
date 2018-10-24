@@ -126,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT "+A_NAME+","+UA_START_DATE+","+UA_FINISH_DATE+",Cast ((\n" +
                 "    JulianDay("+UA_FINISH_DATE+") - JulianDay("+UA_START_DATE+")\n" +
                 ") * 24 * 60 * 60 As Integer) AS Toplam FROM "+ TABLE_USER_ACTION+" AS ua INNER JOIN "+TABLE_ACTIONS+" AS a" +
-                " ON ua."+UA_ACTION_ID+" = a."+A_ID;
+                " ON ua."+UA_ACTION_ID+" = a."+A_ID+" WHERE "+UA_FINISH_DATE+" IS NOT NULL";
         Log.d(TAG, "Listele: query: " + query);
         Cursor cursor = db.rawQuery(query,null);
 
@@ -157,7 +157,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String query = "WITH CTE AS (SELECT " + A_NAME + " ,SUM(Cast ((JulianDay(" + UA_FINISH_DATE + ") - JulianDay(" + UA_START_DATE + "))" +
                 " * 24 * 60 * 60 As Integer)) AS Toplam FROM " + TABLE_USER_ACTION + " AS ua INNER JOIN " + TABLE_ACTIONS + " AS a " +
-                "ON ua." + UA_ACTION_ID + " = a." + A_ID + " GROUP BY " + A_NAME + ") SELECT "+A_NAME+",Toplam FROM CTE WHERE Toplam = (SELECT MAX(Toplam) FROM CTE ) LIMIT 1";
+                "ON ua." + UA_ACTION_ID + " = a." + A_ID + "  WHERE "+UA_FINISH_DATE+" IS NOT NULL GROUP BY " + A_NAME + ") SELECT "+A_NAME+",Toplam FROM CTE WHERE Toplam = " +
+                "(SELECT MAX(Toplam) FROM CTE ) LIMIT 1";
 
         Log.d(TAG, "maxActionDetail: query: " + query);
 
@@ -175,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String query = "WITH CTE AS (SELECT " + A_NAME + " ,SUM(Cast ((JulianDay(" + UA_FINISH_DATE + ") - JulianDay(" + UA_START_DATE + "))" +
                 " * 24 * 60 * 60 As Integer)) AS Toplam FROM " + TABLE_USER_ACTION + " AS ua INNER JOIN " + TABLE_ACTIONS + " AS a " +
-                "ON ua." + UA_ACTION_ID + " = a." + A_ID + " GROUP BY " + A_NAME + ") SELECT "+A_NAME+",Toplam FROM CTE ORDER BY " +
+                "ON ua." + UA_ACTION_ID + " = a." + A_ID + "  WHERE "+UA_FINISH_DATE+" IS NOT NULL GROUP BY " + A_NAME + ") SELECT "+A_NAME+",Toplam FROM CTE ORDER BY " +
                 "Toplam DESC LIMIT 4";
 
         Log.d(TAG, "grafikListe: query: " + query);
