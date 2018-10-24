@@ -170,5 +170,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG,"En çok yapılan etkinlik: "+getMaxAction()+",süresi: "+getMaxTime());
     }
 
+    public Cursor grafikListe(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "WITH CTE AS (SELECT " + A_NAME + " ,SUM(Cast ((JulianDay(" + UA_FINISH_DATE + ") - JulianDay(" + UA_START_DATE + "))" +
+                " * 24 * 60 * 60 As Integer)) AS Toplam FROM " + TABLE_USER_ACTION + " AS ua INNER JOIN " + TABLE_ACTIONS + " AS a " +
+                "ON ua." + UA_ACTION_ID + " = a." + A_ID + " GROUP BY " + A_NAME + ") SELECT "+A_NAME+",Toplam FROM CTE ORDER BY " +
+                "Toplam DESC LIMIT 4";
+
+        Log.d(TAG, "grafikListe: query: " + query);
+        Cursor cursor = db.rawQuery(query,null);
+
+        return  cursor;
+    }
+
 }
 
