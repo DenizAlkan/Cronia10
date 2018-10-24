@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.app.cronia.cronia10.Adapter.Dashboard_adapter_listview;
 import com.app.cronia.cronia10.Database.DatabaseHelper;
@@ -43,6 +44,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     public static final String FIFTH_COLUMN = "Fifth";
     private ListView listView;
     private Dashboard_adapter_listview adapter;
+    TextView dashboard_txt_MaxActivity,dashboard_txt_MaxTime;
 
     final DatabaseHelper mdb = new DatabaseHelper(this);
 
@@ -50,7 +52,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        dashboard_txt_MaxActivity = (TextView) findViewById(R.id.dashboard_txt_MaxActivity);
+        dashboard_txt_MaxTime = (TextView) findViewById(R.id.dashboard_txt_maxTime);
 
+
+        mdb.maxActionDetail();
+        dashboard_txt_MaxActivity.setText(mdb.getMaxAction());
+        dashboard_txt_MaxTime.setText( String.valueOf(mdb.getMaxTime()));
         footer_imgbtn_dashboard = (ImageButton) findViewById(R.id.footer_imgbtn_dashboard);
         footer_imgbtn_home = (ImageButton) findViewById(R.id.footer_imgbtn_home);
         footer_imgbtn_profile = (ImageButton) findViewById(R.id.footer_imgbtn_profile);
