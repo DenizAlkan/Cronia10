@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            >
+            android:background="@color/main_rect_color">
 
             <TextView
                 android:id="@+id/TextFirst"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.4"
                 android:text="Etkinlik"
-                android:textColor="@color/black"
+                android:textColor="@color/cardview_light_background"
                 android:textColorHighlight="@color/white"
                 android:textSize="16sp" />
 
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Başlangıç"
-                android:textColor="@color/black"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="16sp" />
 
             <TextView
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.2"
                 android:text="Bitiş"
-                android:textColor="@color/black"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="16sp" />
 
             <TextView
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:text="Toplam"
-                android:textColor="@color/black"
+                android:textColor="@color/cardview_light_background"
                 android:textSize="16sp" />
 
 

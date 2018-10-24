@@ -91,11 +91,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        Cursor cursor = mdb.Listele();
+        Cursor cursor = mdb.grafikListe();
 
         while (cursor.moveToNext()){
 
-            int value = Integer.parseInt(cursor.getString(3));
+            int value = Integer.parseInt(cursor.getString(1));
 
             yValues.add(new PieEntry(value, cursor.getString(0)));
 

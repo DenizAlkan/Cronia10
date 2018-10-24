@@ -1,5 +1,9 @@
 package com.app.cronia.cronia10;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -8,6 +12,7 @@ import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +20,19 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.app.cronia.cronia10.Database.DatabaseHelper;
+import com.app.cronia.cronia10.Graphic.ClockPieHelper;
+import com.app.cronia.cronia10.Graphic.ClockPieView;
+
+import java.util.ArrayList;
+
+import static android.os.SystemClock.*;
+import static com.app.cronia.cronia10.R.drawable.login_logo;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public CardView main_cardvw_1_1,main_cardvw_1_2, main_cardvw_2_1, main_cardvw_2_2, main_cardvw_3_1, main_cardvw_3_2;
@@ -32,6 +45,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton footer_imgbtn_home;
     private ImageButton footer_imgbtn_profile;
 
+    ClockPieView clockPieView;
+
+    //Notification
+    private NotificationCompat.Builder builder;
+    private NotificationManager notificationManager;
+    private int notification_id;
+    private RemoteViews remoteViews;
+    private Context context;
+
+
+
+
+
+
 
 
     /*yorum*/
@@ -39,6 +66,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        clockPieView = (ClockPieView)findViewById(R.id.clock_pie_view);
+        set(clockPieView);
+
+        //notification
+        context = this;
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        builder = new NotificationCompat.Builder(this);
+
+        remoteViews = new RemoteViews(getPackageName(),R.layout.main_notification_normal);
+        remoteViews.setImageViewResource(R.id.notif_icon,R.mipmap.ic_launcher);
+        remoteViews.setTextViewText(R.id.notif_title,"TEXT");
+        remoteViews.setChronometer(R.id.chr_notif, elapsedRealtime(),"00:00",true );
+
+
+
+
+
+
+
+
+
 
         //statusbar color
         Window window = this.getWindow();
@@ -120,6 +169,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void randomSet(ClockPieView clockPieView){
+        ArrayList<ClockPieHelper> clockPieHelperArrayList = new ArrayList<ClockPieHelper>();
+        for(int i=0; i<20; i++){
+            int startHour = (int)(24*Math.random());
+            int startMin = (int)(60*Math.random());
+            int duration = (int)(50*Math.random());
+            clockPieHelperArrayList.add(new ClockPieHelper(startHour,startMin,0,startHour,startMin+duration,0));
+        }
+        clockPieView.setDate(clockPieHelperArrayList);
+    }
+
+    public void set(ClockPieView clockPieView){
+        ArrayList<ClockPieHelper> clockPieHelperArrayList = new ArrayList<ClockPieHelper>();
+        clockPieHelperArrayList.add(new ClockPieHelper(1,50,2,30));
+        clockPieHelperArrayList.add(new ClockPieHelper(5,50,6,30));
+        clockPieHelperArrayList.add(new ClockPieHelper(8,50,10,30));
+        clockPieHelperArrayList.add(new ClockPieHelper(10,50,12 ,30));
+        clockPieHelperArrayList.add(new ClockPieHelper(6,50,8,30));
+        clockPieView.setDate(clockPieHelperArrayList);
+    }
+
 
 
     @Override
@@ -136,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     if( durum_1_1 == 0) {
 
-                        main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                        main_chr_1_1.setBase(elapsedRealtime());
                         mdb.addData(1,1);
                         main_chr_1_1.start();
                         main_chr_1_1.setVisibility(View.VISIBLE);
@@ -145,10 +215,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         main_txt_1_1.setTextColor(getResources().getColor(R.color.white));
                         durum_1_1 = 1;
                         etklinliksayisi++;
+
+                        notification_id = (int) System.currentTimeMillis();
+
+
+                        Intent button_intent = new Intent("button_click");
+                        button_intent.putExtra("id",notification_id);
+                        PendingIntent button_pending_event = PendingIntent.getBroadcast(context,notification_id,
+                                button_intent,0);
+
+                        remoteViews.setOnClickPendingIntent(R.id.button,button_pending_event);
+
+                        Intent notification_intent = new Intent(context,MainActivity.class);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,notification_intent,0);
+
+                        builder.setSmallIcon(R.mipmap.ic_launcher)
+                                .setAutoCancel(true)
+                                .setCustomBigContentView(remoteViews)
+                                .setContentIntent(pendingIntent);
+
+
+                        notificationManager.notify(notification_id,builder.build());
+
+
+
+
+
                     }
 
                     else {
-                        main_chr_1_1.setBase(SystemClock.elapsedRealtime());
+                        main_chr_1_1.setBase(elapsedRealtime());
                         mdb.updateFinishDate("Yemek");
                         main_chr_1_1.stop();
                         main_chr_1_1.setVisibility(View.INVISIBLE);
@@ -180,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if ( durum_1_2 == 0)
                     {
 
-                        main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                        main_chr_1_2.setBase(elapsedRealtime());
                         mdb.addData(2,1);
                         main_chr_1_2.start();
                         main_chr_1_2.setVisibility(View.VISIBLE);
@@ -191,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         etklinliksayisi++;
                     }
                     else {
-                        main_chr_1_2.setBase(SystemClock.elapsedRealtime());
+                        main_chr_1_2.setBase(elapsedRealtime());
                         mdb.updateFinishDate("Kitap Okuma");
                         main_chr_1_2.stop();
                         main_chr_1_2.setVisibility(View.INVISIBLE);
@@ -219,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if ( durum_2_1 == 0)
                     {
 
-                        main_chr_2_1.setBase(SystemClock.elapsedRealtime());
+                        main_chr_2_1.setBase(elapsedRealtime());
                         mdb.addData(3,1);
                         main_chr_2_1.start();
                         main_chr_2_1.setVisibility(View.VISIBLE);
@@ -232,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else
                     {
-                        main_chr_2_1.setBase(SystemClock.elapsedRealtime());
+                        main_chr_2_1.setBase(elapsedRealtime());
                         mdb.updateFinishDate("Uyku");
                         main_chr_2_1.stop();
                         main_chr_2_1.setVisibility(View.INVISIBLE);
@@ -261,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if ( durum_2_2 == 0)
                     {
 
-                        main_chr_2_2.setBase(SystemClock.elapsedRealtime());
+                        main_chr_2_2.setBase(elapsedRealtime());
                         mdb.addData(4,1);
                         main_chr_2_2.start();
                         main_chr_2_2.setVisibility(View.VISIBLE);
@@ -274,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else
                     {
-                        main_chr_2_2.setBase(SystemClock.elapsedRealtime());
+                        main_chr_2_2.setBase(elapsedRealtime());
                         mdb.updateFinishDate("Sosyallik");
                         main_chr_2_2.stop();
                         main_chr_2_2.setVisibility(View.INVISIBLE);
@@ -303,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (durum_3_1 == 0)
                     {
 
-                        main_chr_3_1.setBase(SystemClock.elapsedRealtime());
+                        main_chr_3_1.setBase(elapsedRealtime());
                         mdb.addData(5,1);
                         main_chr_3_1.start();
                         main_chr_3_1.setVisibility(View.VISIBLE);
@@ -317,7 +413,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else
                     {
-                        main_chr_3_1.setBase(SystemClock.elapsedRealtime());
+                        main_chr_3_1.setBase(elapsedRealtime());
                         mdb.updateFinishDate("Spor");
                         main_chr_3_1.stop();
                         main_chr_3_1.setVisibility(View.INVISIBLE);
@@ -346,7 +442,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (durum_3_2==0)
                     {
 
-                        main_chr_3_2.setBase(SystemClock.elapsedRealtime());
+                        main_chr_3_2.setBase(elapsedRealtime());
                         mdb.addData(6,1);
                         main_chr_3_2.start();
                         main_chr_3_2.setVisibility(View.VISIBLE);
@@ -359,7 +455,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else
                     {
-                        main_chr_3_2.setBase(SystemClock.elapsedRealtime());
+                        main_chr_3_2.setBase(elapsedRealtime());
                         mdb.updateFinishDate("Seyahat");
                         main_chr_3_2.stop();
                         main_chr_3_2.setVisibility(View.INVISIBLE);
