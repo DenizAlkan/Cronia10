@@ -1,52 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="112dp"
-    android:background="@color/colorPrimaryDark"
-    android:orientation="horizontal"
-    >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/notif_icon"
+        android:id="@+id/imageViewIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:src="@android:drawable/ic_dialog_info"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="9dp"/>
-
-    <Chronometer
-        android:id="@+id/chr_notif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="85dp" />
-
+        android:layout_alignParentStart="true"/>
 
     <TextView
-        android:id="@+id/notif_title"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:paddingTop="8dp"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:textColor="#ffffff"
-        android:text="SOME TEXT"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:gravity="center"
+        android:text="@string/title_notif"
+        android:textStyle="normal|bold"
+        android:layout_toRightOf="@+id/imageViewIcon"
+        android:layout_toEndOf="@+id/imageViewIcon"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textViewDesc"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_alignBottom="@+id/notif_icon"
+        android:gravity="center"
+        android:text="@string/desc_notif"
+        android:layout_below="@+id/textViewTitle"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-
-
-
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/imageViewIcon"
+        android:layout_toEndOf="@+id/imageViewIcon"/>
 </RelativeLayout>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Cronia 1.0</string>
+        <string name="notify">Notify Me</string>
+        <string name="title_notif">Title</string>
+        <string name="desc_notif">desc</string>
+
 </resources>

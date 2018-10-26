@@ -48,12 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ClockPieView clockPieView;
 
     //Notification
-    private NotificationCompat.Builder builder;
-    private NotificationManager notificationManager;
-    private int notification_id;
-    private RemoteViews remoteViews;
-    private Context context;
-
+    private static final int NOTIFICATION_ID = 1;
+    private CharSequence notificationTitleText = "Hello Title";
+    private CharSequence notificationDescText = "This is custom Notification desc";
 
 
 
@@ -71,14 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         set(clockPieView);
 
         //notification
-        context = this;
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        builder = new NotificationCompat.Builder(this);
 
-        remoteViews = new RemoteViews(getPackageName(),R.layout.main_notification_normal);
-        remoteViews.setImageViewResource(R.id.notif_icon,R.mipmap.ic_launcher);
-        remoteViews.setTextViewText(R.id.notif_title,"TEXT");
-        remoteViews.setChronometer(R.id.chr_notif, elapsedRealtime(),"00:00",true );
 
 
 
@@ -191,6 +181,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void setMyCustomNotification()
+    {
+        //When the user clicks the button this intent will trigger
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
+
+        //Inflating our custom layout by the RemoteViews class
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.main_notification_normal);
+        //Setting custom layout views properties
+        remoteViews.setImageViewResource(R.id.imageViewIcon, R.drawable.login_logo);
+        remoteViews.setTextViewText(R.id.textViewTitle, notificationTitleText);
+        remoteViews.setTextViewText(R.id.textViewDesc, notificationDescText);
+
+        //Create a notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
+        //Setting small icon for our notification
+        builder.setSmallIcon(R.drawable.main_ent_eatingicon);
+        //Attaching our custom notification views to notification
+        builder.setContent(remoteViews);
+        //Attaching pending intent to notification
+        builder.setContentIntent(pendingIntent);
+
+        //And finally NotificationManager for the notify the user!
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+
 
     @Override
     public void onClick(View view) {
@@ -216,26 +234,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         durum_1_1 = 1;
                         etklinliksayisi++;
 
-                        notification_id = (int) System.currentTimeMillis();
-
-
-                        Intent button_intent = new Intent("button_click");
-                        button_intent.putExtra("id",notification_id);
-                        PendingIntent button_pending_event = PendingIntent.getBroadcast(context,notification_id,
-                                button_intent,0);
-
-                        remoteViews.setOnClickPendingIntent(R.id.button,button_pending_event);
-
-                        Intent notification_intent = new Intent(context,MainActivity.class);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,notification_intent,0);
-
-                        builder.setSmallIcon(R.mipmap.ic_launcher)
-                                .setAutoCancel(true)
-                                .setCustomContentView(remoteViews)
-                                .setContentIntent(pendingIntent);
-
-
-                        notificationManager.notify(notification_id,builder.build());
+                        setMyCustomNotification();
 
 
 
