@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         builder.setSmallIcon(R.mipmap.ic_launcher)
                                 .setAutoCancel(true)
-                                .setCustomBigContentView(remoteViews)
+                                .setCustomContentView(remoteViews)
                                 .setContentIntent(pendingIntent);
 
 
