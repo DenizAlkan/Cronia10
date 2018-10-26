@@ -48,6 +48,16 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     @Override
+    public void onBackPressed(){
+        Intent i = new Intent(Profile.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(i);
+        //Slide Animation
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch (view.getId()) {

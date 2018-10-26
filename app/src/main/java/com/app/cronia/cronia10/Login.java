@@ -40,6 +40,7 @@ public class Login extends AppCompatActivity {
                 //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
                 Intent go_to_main = new Intent(Login.this, MainActivity.class);
                 startActivity(go_to_main);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
 
         });

@@ -484,6 +484,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent dashboard=new Intent();
                 dashboard.setClass(MainActivity.this,Dashboard.class);
                 startActivity(dashboard);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
                 break;
 
@@ -492,6 +493,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent profile=new Intent();
                 profile.setClass(MainActivity.this,Profile.class);
                 startActivity(profile);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 

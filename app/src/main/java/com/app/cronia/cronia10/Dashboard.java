@@ -180,6 +180,16 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent i = new Intent(Dashboard.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(i);
+        //Slide Animation
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -187,9 +197,14 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         switch (view.getId()) {
             case R.id.footer_imgbtn_home:
 
-                Intent home = new Intent();
-                home.setClass(Dashboard.this, MainActivity.class);
-                startActivity(home);
+
+
+                Intent i = new Intent(Dashboard.this, MainActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(i);
+                //Slide Animation
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 
@@ -198,6 +213,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 Intent profile = new Intent();
                 profile.setClass(Dashboard.this, Profile.class);
                 startActivity(profile);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
 
                 break;
         }

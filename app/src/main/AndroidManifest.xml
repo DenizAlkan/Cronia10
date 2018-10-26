@@ -28,9 +28,11 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MainActivity">
+        <activity  android:name=".MainActivity"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleInstance">
         </activity>
+
         <activity
             android:name=".Register">
         </activity>
@@ -43,6 +45,8 @@
         <activity
             android:name=".Profile">
         </activity>
+
+
     </application>
 
 </manifest>
