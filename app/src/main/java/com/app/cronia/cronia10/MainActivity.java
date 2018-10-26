@@ -190,16 +190,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Inflating our custom layout by the RemoteViews class
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.main_notification_normal);
         //Setting custom layout views properties
-        remoteViews.setImageViewResource(R.id.imageViewIcon, R.drawable.login_logo);
+        remoteViews.setImageViewResource(R.id.imageViewIcon, R.drawable.main_ent_eatingicon);
         remoteViews.setTextViewText(R.id.textViewTitle, notificationTitleText);
         remoteViews.setTextViewText(R.id.textViewDesc, notificationDescText);
 
         //Create a notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
         //Setting small icon for our notification
-        builder.setSmallIcon(R.drawable.main_ent_eatingicon);
+        builder.setSmallIcon(R.drawable.login_logo);
         //Attaching our custom notification views to notification
         builder.setContent(remoteViews);
+        builder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
         //Attaching pending intent to notification
         builder.setContentIntent(pendingIntent);
 

@@ -15,11 +15,12 @@
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imageViewIcon"
+        android:layout_toRightOf="@+id/imageViewIcon"
         android:gravity="center"
         android:text="@string/title_notif"
-        android:textStyle="normal|bold"
-        android:layout_toRightOf="@+id/imageViewIcon"
-        android:layout_toEndOf="@+id/imageViewIcon"/>
+        android:textColor="@color/black"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:id="@+id/textViewDesc"
