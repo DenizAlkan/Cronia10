@@ -64,17 +64,17 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.footer_imgbtn_dashboard:
 
                 Intent home = new Intent();
-                home.setClass(Profile.this, MainActivity.class);
+                home.setClass(Profile.this, Dashboard.class);
                 startActivity(home);
-
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
 
-            case R.id.footer_imgbtn_profile:
+            case R.id.footer_imgbtn_home:
 
                 Intent profile = new Intent();
-                profile.setClass(Profile.this, Profile.class);
+                profile.setClass(Profile.this, MainActivity.class);
                 startActivity(profile);
-
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
         }
 
