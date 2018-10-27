@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.app.cronia.cronia10.Register;
 import com.app.cronia.cronia10.Database.DatabaseHelper;
@@ -18,6 +19,8 @@ public class DBFunc extends AppCompatActivity {
 
     final DatabaseHelper mdb = new DatabaseHelper(this);
     final Register rgtr = new Register();
+
+   
 
 
     public int registerControl (String userName,String mail){
