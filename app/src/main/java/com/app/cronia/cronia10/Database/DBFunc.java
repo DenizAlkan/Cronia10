@@ -25,7 +25,7 @@ public class DBFunc extends AppCompatActivity {
         int result = 0;
 
         String userNameQuery = "SELECT * FROM "+mdb.TABLE_USERS+ " WHERE "+mdb.U_USER_NAME+" = "+userName;
-        String mailQuery = "SELECT * FROM "+mdb.TABLE_USERS+ " WHERE "+mdb.U_USER_NAME+" = "+userName;
+        String mailQuery = "SELECT * FROM "+mdb.TABLE_USERS+ " WHERE "+mdb.U_MAIL+" = "+mail;
 
         Cursor c1 = db.rawQuery(userNameQuery,null);
         Log.d(TAG,userName+" Count : "+c1.getCount());
