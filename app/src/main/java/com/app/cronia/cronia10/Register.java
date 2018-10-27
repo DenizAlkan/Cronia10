@@ -9,14 +9,20 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.cronia.cronia10.Database.DBFunc;
 import com.app.cronia.cronia10.Database.DatabaseHelper;
 
 public class Register extends AppCompatActivity {
 
     private static final String TAG = "Register";
     Button register_btn_next;
+    TextView register_txt_username,register_txt_email,register_txt_pass;
+    int Register_state;
+    DBFunc mdb;
+
 
  /*
     DatabaseHelper mDatabaseHelper;
@@ -27,6 +33,10 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        register_txt_username = (TextView) findViewById(R.id.register_txt_username);
+        register_txt_email = (TextView) findViewById(R.id.register_txt_email);
+        register_txt_pass = (TextView) findViewById(R.id.register_txt_pass);
+
 
         //statusbar color
         Window window = this.getWindow();
@@ -41,8 +51,19 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
-                Intent go_to_main = new Intent(Register.this, Register_2.class);
-                startActivity(go_to_main);
+                < =  mdb.registerControl(register_txt_username.toString(),register_txt_email.toString());
+
+                if ( Register_state == 0)
+                {
+                    Intent go_to_main = new Intent(Register.this, Register_2.class);
+                    startActivity(go_to_main);
+                }
+
+
+
+
+
+
             }
 
         });

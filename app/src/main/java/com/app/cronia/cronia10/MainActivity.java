@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int NOTIFICATION_ID = 1;
     private CharSequence notificationTitleText = "Hello Title";
     private CharSequence notificationDescText = "This is custom Notification desc";
+    public long timeDifference = 0;
+    Chronometer chronometer;
 
 
 
@@ -193,6 +195,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         remoteViews.setImageViewResource(R.id.imageViewIcon, R.drawable.main_ent_eatingicon);
         remoteViews.setTextViewText(R.id.textViewTitle, notificationTitleText);
         remoteViews.setTextViewText(R.id.textViewDesc, notificationDescText);
+       // remoteViews.setChronometer(R.id.chr_notif, SystemClock.elapsedRealtime(), null, true);
+        long timeDifference = 0;
+        Chronometer chronometer = (Chronometer) findViewById(R.id.chr_notif);
+        timeDifference  = chronometer.getBase() - SystemClock.elapsedRealtime();
+        remoteViews.setChronometer(R.id.chr_notif, SystemClock.elapsedRealtime(),
+                null, false);
 
         //Create a notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
@@ -201,6 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Attaching our custom notification views to notification
         builder.setContent(remoteViews);
         builder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
+        builder.setUsesChronometer(true);
+
         //Attaching pending intent to notification
         builder.setContentIntent(pendingIntent);
 
