@@ -196,11 +196,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         remoteViews.setTextViewText(R.id.textViewTitle, notificationTitleText);
         remoteViews.setTextViewText(R.id.textViewDesc, notificationDescText);
        // remoteViews.setChronometer(R.id.chr_notif, SystemClock.elapsedRealtime(), null, true);
-        long timeDifference = 0;
+        /*long timeDifference = 0;
         Chronometer chronometer = (Chronometer) findViewById(R.id.chr_notif);
         timeDifference  = chronometer.getBase() - SystemClock.elapsedRealtime();
         remoteViews.setChronometer(R.id.chr_notif, SystemClock.elapsedRealtime(),
-                null, false);
+                null, false);*/
 
         //Create a notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
