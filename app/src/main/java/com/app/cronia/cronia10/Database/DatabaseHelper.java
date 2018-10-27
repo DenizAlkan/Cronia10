@@ -32,6 +32,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String A_NAME = "NAME";
     public static final String A_IMAGE_URL = "IMAGE_URL";
 
+    public static final String TABLE_USERS = "USERS";
+    public static final String U_ID = "ID";
+    public static final String U_USER_NAME = "USER_NAME";
+    public static final String U_MAIL = "MAIL";
+    public static final String U_PASSWORD = "PASSWORD";
+    public static final String U_REGISTER_DATE = "REGISTER_DATE";
+
+    public static final String TABLE_USER_DETAILS = "USER_DETAILS";
+    public static final String UD_USER_ID = "USER_ID";
+    public static final String UD_FIRST_NAME = "FIRST_NAME";
+    public static final String UD_LAST_NAME = "LAST_NAME";
+    public static final String UD_GENDER = "GENDER";
+    public static final String UD_BIRTH_DATE = "BIRTH_DATE";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME+".db", null, 1);
@@ -49,10 +62,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 A_NAME +" TEXT NOT NULL,"+
                 A_IMAGE_URL +" TEXT NULL)";
 
+        String createTable_Users = "CREATE TABLE "+TABLE_USERS + " ("+U_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                U_USER_NAME+" TEXT NOT NULL,"+
+                U_MAIL +" TEXT NOT NULL,"+
+                U_PASSWORD +" TEXT NOT NULL,"+
+                U_REGISTER_DATE+ " DATETIME NOT NULL DEFAULT (DATETIME('now','localtime')) )";
+
+        String createTable_UserDetails = "CREATE TABLE "+TABLE_USER_DETAILS + " ("+UD_USER_ID+" INTEGER NOT NULL, " +
+                UD_FIRST_NAME+" TEXT,"+
+                UD_LAST_NAME +" TEXT,"+
+                UD_GENDER+ " TEXT,"+
+                UD_BIRTH_DATE+ " DATE";
+
         Log.d(TAG, "USER_ACTION tableCreate: query: " + createTable_UserAction);
         db.execSQL(createTable_UserAction);
         Log.d(TAG, "ACTIONS tableCreate: query: " + createTable_Actions);
         db.execSQL(createTable_Actions);
+        Log.d(TAG, "USERS tableCreate: query: " + createTable_Users);
+        db.execSQL(createTable_Users);
+        Log.d(TAG, "USER_DETAILS tableCreate: query: " + createTable_UserDetails);
+        db.execSQL(createTable_UserDetails);
 
         String Actions_Data = "INSERT INTO " + TABLE_ACTIONS + " ("+A_NAME+") " +
                 "VALUES ('Yemek'),('Kitap Okuma'),('Uyku'),('Sosyallik'),('Spor'),('Seyahat')";
@@ -185,5 +214,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  cursor;
     }
 
+
 }
+
 
