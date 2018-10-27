@@ -72,7 +72,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 UD_FIRST_NAME+" TEXT,"+
                 UD_LAST_NAME +" TEXT,"+
                 UD_GENDER+ " TEXT,"+
-                UD_BIRTH_DATE+ " DATE";
+                UD_BIRTH_DATE+ " DATE)";
+
 
         Log.d(TAG, "USER_ACTION tableCreate: query: " + createTable_UserAction);
         db.execSQL(createTable_UserAction);
