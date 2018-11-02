@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,22 +14,25 @@ import com.app.cronia.cronia10.Database.DatabaseHelper;
 
 import java.util.Date;
 
-public class DBFunc extends AppCompatActivity {
+public abstract class DBFunc extends Context {
 
     public static final String TAG = "DBFunc";
 
     final DatabaseHelper mdb = new DatabaseHelper(this);
-    final Register rgtr = new Register();
 
-   
 
 
     public int registerControl (String userName,String mail){
-        SQLiteDatabase db = mdb.getReadableDatabase();
-        int result = 0;
+        Log.d(TAG,"registerControl,degiskenler : "+userName+" , "+mail);
 
-        String userNameQuery = "SELECT * FROM "+mdb.TABLE_USERS+ " WHERE "+mdb.U_USER_NAME+" = "+userName;
-        String mailQuery = "SELECT * FROM "+mdb.TABLE_USERS+ " WHERE "+mdb.U_MAIL+" = "+mail;
+        SQLiteDatabase db = mdb.getWritableDatabase();
+        int result = 0;
+        Log.d(TAG,"buraya geldi");
+
+        String userNameQuery = "SELECT * FROM "+mdb.TABLE_USERS+ " WHERE "+mdb.U_USER_NAME+" = \'"+userName+"\'";
+        String mailQuery = "SELECT * FROM "+mdb.TABLE_USERS+ " WHERE "+mdb.U_MAIL+" = \'"+mail+"\'";
+
+
 
         Cursor c1 = db.rawQuery(userNameQuery,null);
         Log.d(TAG,userName+" Count : "+c1.getCount());
