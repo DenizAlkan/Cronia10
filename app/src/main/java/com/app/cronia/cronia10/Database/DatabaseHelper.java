@@ -246,7 +246,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void userInsert (String userName, String mail, String pass, String firstName, String lastName, Date dateOfBirth, String gender){
+    public void userInsert (String userName, String mail, String pass, String firstName, String lastName, String dateOfBirth, String gender){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues c1 = new ContentValues();
@@ -260,7 +260,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c2.put(UD_USER_ID, result1);
         c2.put(UD_FIRST_NAME, firstName);
         c2.put(UD_LAST_NAME, lastName);
-        c2.put(UD_BIRTH_DATE, String.valueOf(dateOfBirth));
+        c2.put(UD_BIRTH_DATE, dateOfBirth);
         c2.put(UD_GENDER, gender);
 
         db.insert(TABLE_USER_DETAILS,null,c2);

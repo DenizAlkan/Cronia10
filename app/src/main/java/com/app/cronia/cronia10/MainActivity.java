@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CharSequence notificationDescText = "This is custom Notification desc";
     public long timeDifference = 0;
     Chronometer chronometer;
+    public long pauseOffset;
 
 
 
@@ -183,24 +184,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void setMyCustomNotification()
+    public void setMyCustomNotification(String a)
     {
         //When the user clicks the button this intent will trigger
+
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
 
         //Inflating our custom layout by the RemoteViews class
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.main_notification_normal);
         //Setting custom layout views properties
-        remoteViews.setImageViewResource(R.id.imageViewIcon, R.drawable.main_ent_eatingicon);
-        remoteViews.setTextViewText(R.id.textViewTitle, notificationTitleText);
+
+        if (a=="a")
+        {
+            remoteViews.setImageViewResource(R.id.imageViewIcon, R.drawable.main_ent_eatingicon);
+            remoteViews.setTextViewText(R.id.textViewTitle, notificationTitleText);
+            remoteViews.setChronometer(R.id.chr_notif,SystemClock.elapsedRealtime(),null,true);
+            //Create a notification
+
+            //Setting small icon for our notification
+
+
+            //And finally NotificationManager for the notify the user!
+
+        }
+        else
+        {
+
+            remoteViews.setTextViewText(R.id.textViewTitle, "saa");
+            //remoteViews.setChronometer(R.id.chr_notif,SystemClock.elapsedRealtime() + pauseOffset,null,false);
+
+
+            timeDifference  = main_chr_1_1.getBase();
+            remoteViews.setChronometer(R.id.chr_notif, timeDifference,
+                    null, false);
+
+        }
+
         remoteViews.setTextViewText(R.id.textViewDesc, notificationDescText);
        // remoteViews.setChronometer(R.id.chr_notif, SystemClock.elapsedRealtime(), null, true);
 
-
-        //Create a notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
-        //Setting small icon for our notification
+
         builder.setSmallIcon(R.drawable.login_logo);
         //Attaching our custom notification views to notification
         builder.setContent(remoteViews);
@@ -210,9 +235,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Attaching pending intent to notification
         builder.setContentIntent(pendingIntent);
 
-        //And finally NotificationManager for the notify the user!
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, builder.build());
+
+
+
     }
 
 
@@ -241,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         durum_1_1 = 1;
                         etklinliksayisi++;
 
-                        setMyCustomNotification();
+                        setMyCustomNotification("a");
 
 
 
@@ -250,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
                     else {
+                        setMyCustomNotification("b");
                         main_chr_1_1.setBase(elapsedRealtime());
                         mdb.updateFinishDate("Yemek");
                         main_chr_1_1.stop();
@@ -259,6 +287,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         main_cardvw_1_1.setCardBackgroundColor(getResources().getColor(R.color.white));
                         main_btn_1_1.setImageResource(R.drawable.main_ent_eatingicon);
                         main_txt_1_1.setTextColor(getResources().getColor(R.color.main_text_color));
+
+
+
+
 
                     }
                 }
