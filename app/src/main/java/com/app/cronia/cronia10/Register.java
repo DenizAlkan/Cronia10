@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.cronia.cronia10.Database.DBFunc;
 import com.app.cronia.cronia10.Database.DatabaseHelper;
@@ -21,7 +19,8 @@ public class Register extends AppCompatActivity {
     Button register_btn_next;
     TextView register_txt_username,register_txt_email,register_txt_pass;
     int Register_state;
-    DBFunc mdb;
+    //final DBFunc dbx;
+    final DatabaseHelper mdb = new DatabaseHelper(this);
 
 
  /*
@@ -53,7 +52,7 @@ public class Register extends AppCompatActivity {
                 //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
                 String username = register_txt_username.getText().toString();
                 String email =register_txt_email.getText().toString();
-                Register_state =  mdb.registerControl("a","e");
+                Register_state =  mdb.registerControl(username,email);
 
                 if ( Register_state == 0)
                 {
@@ -71,46 +70,5 @@ public class Register extends AppCompatActivity {
         });
 
     }
-       /* editText = (EditText) findViewById(R.id.editText);
-        buttonAdd = (Button) findViewById(R.id.buttonAdd);
-        buttonView = (Button) findViewById(R.id.buttonView);
-        mDatabaseHelper = new DatabaseHelper(this);
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                    AddData(1,1);
-
-
-
-            }
-        });
-
-        buttonView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Register.this, ListDataActivity.class);
-                startActivity(intent);
-            }
-        });
-
-    }
-
-    public void AddData(int item1,int item2) {
-        boolean insertData = mDatabaseHelper.addData(item1,item2);
-
-        if (insertData) {
-            toastMessage("Data Successfully Inserted!");
-        } else {
-            toastMessage("Something went wrong");
-        }
-    }
-
-
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
-    }
-    */
 }

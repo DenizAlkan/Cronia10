@@ -9,6 +9,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by User on 2/28/2017.
@@ -214,6 +215,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  cursor;
     }
 
+    public int registerControl (String userName,String mail){
+        Log.d(TAG,"registerControl,degiskenler : "+userName+" , "+mail);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        int result = 0;
+
+        String userNameQuery = "SELECT * FROM "+TABLE_USERS+ " WHERE "+U_USER_NAME+" = \'"+userName+"\'";
+        String mailQuery = "SELECT * FROM "+TABLE_USERS+ " WHERE "+U_MAIL+" = \'"+mail+"\'";
+
+
+
+        Cursor c1 = db.rawQuery(userNameQuery,null);
+        Log.d(TAG,userName+" Count : "+c1.getCount());
+
+        Cursor c2 = db.rawQuery(mailQuery,null);
+        Log.d(TAG,mail+" Count : "+c2.getCount());
+
+        if(c1.getCount() > 0)
+        {
+            result=result+1;
+        }
+        c1.close();
+        if(c2.getCount() > 0)
+        {
+            result=result+2;
+        }
+        c2.close();
+        close();
+        return result;
+    }
+
+    public void userInsert (String userName, String mail, String pass, String firstName, String lastName, Date dateOfBirth, String gender){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues c1 = new ContentValues();
+        c1.put(U_USER_NAME  ,userName );
+        c1.put(U_MAIL  ,mail );
+        c1.put(U_PASSWORD  ,pass );
+
+        Long result1 = db.insert(TABLE_USERS,null,c1);
+
+        ContentValues c2 = new ContentValues();
+        c2.put(UD_USER_ID, result1);
+        c2.put(UD_FIRST_NAME, firstName);
+        c2.put(UD_LAST_NAME, lastName);
+        c2.put(UD_BIRTH_DATE, String.valueOf(dateOfBirth));
+        c2.put(UD_GENDER, gender);
+
+        db.insert(TABLE_USER_DETAILS,null,c2);
+
+        db.close();
+
+    }
 
 }
 
