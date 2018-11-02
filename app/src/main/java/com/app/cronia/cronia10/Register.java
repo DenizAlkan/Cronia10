@@ -51,7 +51,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
-                Register_state =  mdb.registerControl(register_txt_username.toString(),register_txt_email.toString());
+                Register_state =  mdb.registerControl(register_txt_username.getText().toString(),register_txt_email.getText().toString());
 
                 if ( Register_state == 0)
                 {
