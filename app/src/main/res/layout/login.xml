@@ -83,52 +83,44 @@
             android:orientation="vertical">
 
 
-
-
-
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/login_txt_username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:background="@null"
                 android:drawableBottom="@drawable/login_divider_username"
                 android:drawableLeft="@drawable/login_icon_username"
-                android:ems="10"
                 android:drawablePadding="20dp"
+                android:ems="10"
                 android:hint="Kullanıcı Adı"
-                android:textColorHint="@color/white"
                 android:inputType="textPersonName"
                 android:letterSpacing="0.01"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="13.5sp" />
 
 
-
-
-
-
-
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/login_txt_pass"
                 android:layout_width="match_parent"
-                android:drawableBottom="@drawable/login_divider_pass"
-                android:drawableLeft="@drawable/login_icon_pass"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:textSize="13.5sp"
-                android:textColor="@color/white"
-                android:letterSpacing="0.01"
                 android:background="@null"
-                android:hint="Şifre"
+                android:drawableBottom="@drawable/login_divider_pass"
+                android:drawableLeft="@drawable/login_icon_pass"
                 android:drawablePadding="20dp"
-                android:textColorHint="@color/white"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:hint="Şifre"
+                android:inputType="textPassword"
+                android:letterSpacing="0.01"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="13.5sp" />
 
 
 

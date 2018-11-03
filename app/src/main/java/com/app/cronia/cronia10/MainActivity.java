@@ -1,5 +1,6 @@
 package com.app.cronia.cronia10;
 
+import android.support.v7.app.ActionBar;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -70,7 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clockPieView = (ClockPieView)findViewById(R.id.clock_pie_view);
         set(clockPieView);
 
-        //notification
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        View view =getSupportActionBar().getCustomView();
+
 
 
 
