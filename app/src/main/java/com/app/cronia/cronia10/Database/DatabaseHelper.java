@@ -260,6 +260,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public int loginControl (String userName,String password){
+        Log.d(TAG,"loginControl,degiskenler : "+userName+" , "+password);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        int result = 0;
+
+        String userNameQuery = "SELECT * FROM "+TABLE_USERS+ " WHERE "+U_USER_NAME+" = \'"+userName+"\' AND "+U_PASSWORD+" = \'"+
+                password+"\'";
+
+        Cursor c1 = db.rawQuery(userNameQuery,null);
+        Log.d(TAG,userName+" Count : "+c1.getCount());
+
+
+        if(c1.getCount() > 0)
+        {
+            result=result+1;
+        }
+        c1.close();
+        close();
+        return result;
+    }
+
 }
 
 
