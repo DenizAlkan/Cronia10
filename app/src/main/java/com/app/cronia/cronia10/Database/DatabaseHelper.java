@@ -64,8 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 A_IMAGE_URL +" TEXT NULL)";
 
         String createTable_Users = "CREATE TABLE "+TABLE_USERS + " ("+U_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                U_USER_NAME+" TEXT NOT NULL,"+
-                U_MAIL +" TEXT NOT NULL,"+
+                U_USER_NAME+" TEXT UNIQUE NOT NULL,"+
+                U_MAIL +" TEXT UNIQUE NOT NULL,"+
                 U_PASSWORD +" TEXT NOT NULL,"+
                 U_REGISTER_DATE+ " DATETIME NOT NULL DEFAULT (DATETIME('now','localtime')) )";
 
@@ -125,15 +125,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
-
-    /*
-    public Cursor getItemID(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT  MAX(" +UA_ID+ ") FROM " +TABLE_USER_ACTION;
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
-    */
 
     public void updateFinishDate(String action){
         //String getDate = DateFormat.getDateTimeInstance().format(new Date());
