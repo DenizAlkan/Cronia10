@@ -29,21 +29,26 @@
         </activity>
 
         <activity  android:name=".MainActivity"
+            android:theme="@style/CustomTheme"
             android:alwaysRetainTaskState="true"
             android:launchMode="singleInstance">
         </activity>
 
         <activity
-            android:name=".Register">
+            android:name=".Register"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name=".Register_2">
         </activity>
         <activity
-            android:name=".Dashboard">
+            android:name=".Dashboard"
+            android:theme="@style/CustomTheme">
         </activity>
         <activity
-            android:name=".Profile">
+            android:name=".Profile"
+            android:theme="@style/CustomTheme">
         </activity>
 
 

@@ -64,8 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 A_IMAGE_URL +" TEXT NULL)";
 
         String createTable_Users = "CREATE TABLE "+TABLE_USERS + " ("+U_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                U_USER_NAME+" TEXT NOT NULL,"+
-                U_MAIL +" TEXT NOT NULL,"+
+                U_USER_NAME+" TEXT UNIQUE NOT NULL,"+
+                U_MAIL +" TEXT UNIQUE NOT NULL,"+
                 U_PASSWORD +" TEXT NOT NULL,"+
                 U_REGISTER_DATE+ " DATETIME NOT NULL DEFAULT (DATETIME('now','localtime')) )";
 
@@ -125,15 +125,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
-
-    /*
-    public Cursor getItemID(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT  MAX(" +UA_ID+ ") FROM " +TABLE_USER_ACTION;
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
-    */
 
     public void updateFinishDate(String action){
         //String getDate = DateFormat.getDateTimeInstance().format(new Date());
@@ -246,7 +237,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void userInsert (String userName, String mail, String pass, String firstName, String lastName, Date dateOfBirth, String gender){
+    public void userInsert (String userName, String mail, String pass, String firstName, String lastName, String dateOfBirth, String gender){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues c1 = new ContentValues();
@@ -260,13 +251,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c2.put(UD_USER_ID, result1);
         c2.put(UD_FIRST_NAME, firstName);
         c2.put(UD_LAST_NAME, lastName);
-        c2.put(UD_BIRTH_DATE, String.valueOf(dateOfBirth));
+        c2.put(UD_BIRTH_DATE, dateOfBirth);
         c2.put(UD_GENDER, gender);
 
         db.insert(TABLE_USER_DETAILS,null,c2);
 
         db.close();
 
+    }
+
+    public int loginControl (String userName,String password){
+        Log.d(TAG,"loginControl,degiskenler : "+userName+" , "+password);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        int result = 0;
+
+        String userNameQuery = "SELECT * FROM "+TABLE_USERS+ " WHERE "+U_USER_NAME+" = \'"+userName+"\' AND "+U_PASSWORD+" = \'"+
+                password+"\'";
+
+        Cursor c1 = db.rawQuery(userNameQuery,null);
+        Log.d(TAG,userName+" Count : "+c1.getCount());
+
+
+        if(c1.getCount() > 0)
+        {
+            result=result+1;
+        }
+        c1.close();
+        close();
+        return result;
     }
 
 }
