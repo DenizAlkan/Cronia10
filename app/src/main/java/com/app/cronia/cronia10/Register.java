@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.app.cronia.cronia10.Database.DBFunc;
 import com.app.cronia.cronia10.Database.DatabaseHelper;
 
+import java.util.regex.Pattern;
+
 public class Register extends AppCompatActivity {
 
     private static final String TAG = "Register";
@@ -24,6 +27,25 @@ public class Register extends AppCompatActivity {
     int Register_state;
     //final DBFunc dbx;
     final DatabaseHelper mdb = new DatabaseHelper(this);
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    //"(?=.*[0-9])" +         //at least 1 digit
+                    //"(?=.*[a-z])" +         //at least 1 lower case letter
+                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      //any letter
+                   // "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                   "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$");
+    private static final Pattern USERNAME = Pattern.compile(
+            "^"
+                    +"[a-zA-Z0-9_-]{4,15}"+
+                    "$"
+                            //any letter
+
+    );
+
 
 
 
@@ -55,6 +77,19 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                if (!validateEmail() | !validateUsername() | !validatePassword()) {
+                    return;
+                }
+
+                String input = "Email: " + register_txt_email.getEditableText().toString();
+                input += "\n";
+                input += "Username: " + register_txt_username.getEditableText().toString();
+                input += "\n";
+                input += "Password: " + register_txt_pass.getEditableText().toString();
+
+                Toast.makeText( getApplicationContext(),input, Toast.LENGTH_LONG).show();
+
                 //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
                 String username = register_txt_username.getText().toString();
                 String email =register_txt_email.getText().toString();
@@ -101,5 +136,57 @@ public class Register extends AppCompatActivity {
         });
 
     }
+
+    private boolean validateEmail() {
+        String emailInput = register_txt_email.getEditableText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            register_txt_email.setError("Field can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            register_txt_email.setError("Please enter a valid email address");
+            return false;
+        } else {
+            register_txt_email.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateUsername() {
+        String usernameInput = register_txt_username.getEditableText().toString().trim();
+
+        if (usernameInput.isEmpty()) {
+            register_txt_username.setError("Field can't be empty");
+            return false;
+        }
+        else if (!USERNAME.matcher(usernameInput).matches())
+        {
+            register_txt_username.setError("Adam ol");
+            return false;
+        }
+        else if (usernameInput.length() > 15) {
+            register_txt_username.setError("Username too long");
+            return false;
+        } else {
+            register_txt_username.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+        String passwordInput = register_txt_pass.getEditableText().toString().trim();
+
+        if (passwordInput.isEmpty()) {
+            register_txt_pass.setError("Field can't be empty");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
+            register_txt_pass.setError("Password too weak");
+            return false;
+        } else {
+            register_txt_pass.setError(null);
+            return true;
+        }
+    }
+
 
 }

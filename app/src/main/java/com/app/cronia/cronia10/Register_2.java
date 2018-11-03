@@ -45,6 +45,8 @@ public class Register_2 extends AppCompatActivity implements CompoundButton.OnCh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_2);
 
+
+
         register_txt_gender = (TextView)findViewById(R.id.register_txt_gender);
         register_txt_name = (TextView)findViewById(R.id.register_txt_name);
         register_txt_surname = (TextView)findViewById(R.id.register_txt_surname);
@@ -143,4 +145,6 @@ public class Register_2 extends AppCompatActivity implements CompoundButton.OnCh
             register_txt_gender.setText("Kadın");
         }
     }
+
+
 }
