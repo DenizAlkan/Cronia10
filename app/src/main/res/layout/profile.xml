@@ -1,26 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_LinearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/white"
+    android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.8"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:orientation="vertical"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        app:srcCompat="@drawable/profile_img_userimg_copy" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="0.02"
+                        android:lineSpacingMultiplier="1"
+                        android:text="Erşan Kuneri"
+                        android:textColor="#1d1d26"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_lyt_personalinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@color/profile_lyt_personalinfo"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|center_horizontal|center"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Kişisel Bilgiler"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="@null"
+                android:drawableBottom="@drawable/profile_divider_birthday"
+                android:drawableLeft="@drawable/profile_ico_name"
+                android:drawablePadding="20dp"
+                android:hint="Name"
+                android:letterSpacing="0.02"
+                android:lineSpacingMultiplier="1.78"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#1d1d26"
+                android:textSize="12.8sp" />
+            <TextView
+                android:id="@+id/mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="@null"
+                android:drawableBottom="@drawable/profile_divider_birthday"
+                android:drawableLeft="@drawable/profile_ico_email"
+                android:drawablePadding="20dp"
+                android:hint="Mail"
+                android:letterSpacing="0.02"
+                android:lineSpacingMultiplier="1.78"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#1d1d26"
+                android:textSize="12.8sp" />
+
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="@null"
+                android:drawableBottom="@drawable/profile_divider_birthday"
+                android:drawableLeft="@drawable/profile_ico_pass"
+                android:drawablePadding="20dp"
+                android:hint="Password"
+                android:letterSpacing="0.02"
+                android:lineSpacingMultiplier="1.78"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#1d1d26"
+                android:textSize="12.8sp" />
+
+            <TextView
+                android:id="@+id/birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="@null"
+                android:drawableBottom="@drawable/profile_divider_birthday"
+                android:drawableLeft="@drawable/profile_ico_birthday"
+                android:drawablePadding="20dp"
+                android:hint="Name"
+                android:letterSpacing="0.02"
+                android:lineSpacingMultiplier="1.78"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#1d1d26"
+                android:textSize="12.8sp" />
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="@null"
+                android:drawableBottom="@drawable/profile_divider_birthday"
+                android:drawableLeft="@drawable/profile_ico_gender"
+                android:drawablePadding="20dp"
+                android:hint="Gender"
+                android:letterSpacing="0.02"
+                android:lineSpacingMultiplier="1.78"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#1d1d26"
+                android:textSize="12.8sp" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/tool_bar"
+                layout="@layout/bottom_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom">
+
+            </include>
+
+        </LinearLayout>
     </LinearLayout>
 
-
-
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/bottom_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom">
-
-    </include>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

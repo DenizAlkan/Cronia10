@@ -26,6 +26,8 @@
     //main textview default
     <color name="main_text_color">#808080</color>
 
+    <color name="profile_lyt_personalinfo">#0072bc</color>
+
 
 
 

@@ -202,9 +202,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (a=="a")
         {
-            remoteViews.setImageViewResource(R.id.imageViewIcon, R.drawable.main_ent_eatingicon);
-            remoteViews.setTextViewText(R.id.textViewTitle, notificationTitleText);
-            remoteViews.setChronometer(R.id.chr_notif,SystemClock.elapsedRealtime(),null,true);
+            remoteViews.setImageViewResource(R.id.notif_action_logo, R.drawable.main_ent_sleepingicon);
+            remoteViews.setTextViewText(R.id.notif_txt_action, notificationTitleText);
+            remoteViews.setChronometer(R.id.notif_chr,SystemClock.elapsedRealtime(),null,true);
             //Create a notification
 
             //Setting small icon for our notification
@@ -216,17 +216,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else
         {
 
-            remoteViews.setTextViewText(R.id.textViewTitle, "saa");
+            remoteViews.setTextViewText(R.id.notif_txt_action, "saa");
             //remoteViews.setChronometer(R.id.chr_notif,SystemClock.elapsedRealtime() + pauseOffset,null,false);
 
 
             timeDifference  = main_chr_1_1.getBase();
-            remoteViews.setChronometer(R.id.chr_notif, timeDifference,
+            remoteViews.setChronometer(R.id.notif_chr, timeDifference,
                     null, false);
 
         }
 
-        remoteViews.setTextViewText(R.id.textViewDesc, notificationDescText);
+        //remoteViews.setTextViewText(R.id.textViewDesc, notificationDescText);
        // remoteViews.setChronometer(R.id.chr_notif, SystemClock.elapsedRealtime(), null, true);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Attaching our custom notification views to notification
         builder.setContent(remoteViews);
         builder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
-        builder.setUsesChronometer(true);
+        builder.setOngoing(true);
 
         //Attaching pending intent to notification
         builder.setContentIntent(pendingIntent);
