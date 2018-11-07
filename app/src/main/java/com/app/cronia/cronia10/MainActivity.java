@@ -31,6 +31,7 @@ import com.app.cronia.cronia10.Graphic.ClockPieHelper;
 import com.app.cronia.cronia10.Graphic.ClockPieView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static android.os.SystemClock.*;
 import static com.app.cronia.cronia10.R.drawable.login_logo;
@@ -56,6 +57,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Chronometer chronometer;
     public long pauseOffset;
 
+    // Session Manager Class
+    SessionManager session;
+
+    //sessiondan alacağımız Stringlerimizi kaydedeceğimiz Stringler
+    String username, sifre;
+
+    //TextViewlerimiz
+    TextView txt_deneme_sifre;
+    TextView txt_deneme_username;
+
 
 
 
@@ -67,6 +78,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TextView tanımlamaları
+        txt_deneme_username = (TextView) findViewById(R.id.txt_deneme_username);
+        txt_deneme_sifre = (TextView) findViewById(R.id.txt_deneme_sifre);
+
+
+        // session verileri için sınıfımızı çağırdık
+        session = new SessionManager(getApplicationContext());
+
+        // sessiondan kullanıcı verilerini almak için nesnemizi oluşturduk.
+        HashMap<String, String> user = session.getUserDetails();
+
+        //keylerine göre user nesnemizden verilerimizi çağırdık ve ekledik.
+        username = user.get(SessionManager.KEY_USERNAME);
+        sifre = user.get(SessionManager.KEY_SIFRE);
+
+
+
+
+        //session'ın varlığını sorguluyoruz. eğer boş ise giriş sayfasına yönlendiriyoruz.
+        if (username.isEmpty() || sifre.isEmpty()){
+
+            Toast.makeText(getApplicationContext(), "Lütfen Giriş Yapınız.", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+
+        else
+        {
+            txt_deneme_sifre.setText(sifre);
+            txt_deneme_username.setText(username);
+        }
+
 
         clockPieView = (ClockPieView)findViewById(R.id.clock_pie_view);
         set(clockPieView);

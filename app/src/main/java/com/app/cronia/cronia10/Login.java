@@ -29,10 +29,25 @@ public class Login extends AppCompatActivity {
     final DatabaseHelper mdb = new DatabaseHelper(this);
     int LoginState;
 
+    //session durumu
+    SessionManager session;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        // Session Manager tanımladık.
+        session = new SessionManager(getApplicationContext());
+
+        if (session.isLoggedIn() == true){
+
+            startActivity(new Intent(Login.this, MainActivity.class));
+        }
 
         login_txt_username = (EditText) findViewById(R.id.login_txt_username);
         login_txt_pass = (EditText) findViewById(R.id.login_txt_pass);
@@ -59,6 +74,8 @@ public class Login extends AppCompatActivity {
 
                 else
                 {
+                    //giriş başarılı ise Session'a verilerimizi yolladık.
+                    session.createLoginSession(login_txt_username.getText().toString(), login_txt_pass.getText().toString());
                     //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
                     Intent go_to_main = new Intent(Login.this, MainActivity.class);
                     startActivity(go_to_main);
