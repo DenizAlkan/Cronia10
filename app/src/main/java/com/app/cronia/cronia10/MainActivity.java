@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -208,6 +209,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_chr_3_1.setVisibility(View.INVISIBLE);
         main_chr_3_2.setVisibility(View.INVISIBLE);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id)
+        {
+            case R.id.menu_logout_id:
+
+                session.logoutUser();
+
+                break;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void randomSet(ClockPieView clockPieView){
