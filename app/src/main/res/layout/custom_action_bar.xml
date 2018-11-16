@@ -14,20 +14,12 @@
         android:layout_weight="1"
         android:padding="6dp"
         android:scaleType="fitStart"
-        app:srcCompat="@drawable/notification_btn_menu" />
+        app:srcCompat="@drawable/login_logo" />
 
     <Space
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="12" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:padding="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:scaleType="fitEnd"
-        app:srcCompat="@drawable/notification_btn_settings" />
 </LinearLayout>
 
