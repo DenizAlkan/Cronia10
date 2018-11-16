@@ -19,11 +19,58 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import java.util.HashMap;
+
 public class Profile extends AppCompatActivity implements View.OnClickListener {
     private ImageButton footer_imgbtn_dashboard;
     private ImageButton footer_imgbtn_home;
     private ImageButton footer_imgbtn_profile;
 
+    SessionManager session;
+    String usernamee;
+    int userID;
+
+    public String firstName,lastName,birthDate,maiL,password;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getMaiL() {
+        return maiL;
+    }
+
+    public void setMaiL(String maiL) {
+        this.maiL = maiL;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +97,20 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         footer_imgbtn_home.setOnClickListener(this);
         footer_imgbtn_profile.setOnClickListener(this);
 
+        // session verileri için sınıfımızı çağırdık
+        session = new SessionManager(getApplicationContext());
 
+        // sessiondan kullanıcı verilerini almak için nesnemizi oluşturduk.
+        HashMap<String, String> user = session.getUserDetails();
 
+        //keylerine göre user nesnemizden verilerimizi çağırdık ve ekledik.
+        usernamee = user.get(SessionManager.KEY_USERNAME);
+
+        try {
+            userID = Integer.parseInt(user.get(SessionManager.KEY_USERID));
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
     }
 
     @Override
@@ -84,6 +143,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
         }
+
 
     }
 }

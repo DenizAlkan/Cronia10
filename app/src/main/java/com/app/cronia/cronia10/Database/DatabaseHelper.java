@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.app.cronia.cronia10.Profile;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -278,8 +280,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             result=result+1;
         }
         c1.close();
-        close();
+        db.close();
         return result;
+    }
+
+    public String getUserID(String userName){
+        String id ;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT CAST("+U_ID+"AS TEXT) FROM "+TABLE_USERS+" WHERE "+U_USER_NAME+"="+userName;
+        Log.d(TAG,"getUserID query: "+query);
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()) { // if cursor is not empty
+             id = cursor.getString(0);
+        }
+        else
+        {id = "Kullanıcı bulunamadı.";}
+
+        return id;
+    }
+
+    public void getProfile (int userID){
+        Log.d(TAG,"getProfile : "+userID);
+
+        Profile profile = new Profile();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String profileQuery = "SELECT "+UD_FIRST_NAME+","+UD_LAST_NAME+",CAST("+UD_BIRTH_DATE+") FROM "+TABLE_USER_DETAILS+
+           " WHERE "+UD_USER_ID+" = "+userID;
+
+        Log.d(TAG, "getProfile: query: " + profileQuery);
+
+        Cursor cursor = db.rawQuery(profileQuery,null);
+        while (cursor.moveToNext()) {
+            profile.setFirstName(cursor.getString(0));
+            profile.setLastName(cursor.getString(1));
+            profile.setBirthDate(cursor.getString(2));
+        }
+        cursor.close();
+
+        String profileQuery2 = "SELECT "+U_MAIL+","+U_PASSWORD+" FROM "+TABLE_USERS+" WHERE "+U_ID+" = "+userID;
+        Log.d(TAG, "getProfile: query2: " + profileQuery2);
+
+        Cursor cursor2 = db.rawQuery(profileQuery2,null);
+        while (cursor.moveToNext()) {
+            profile.setMaiL(cursor.getString(0));
+            profile.setPassword(cursor.getString(1));
+        }
+        cursor2.close();
+        db.close();
     }
 
 }

@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity {
 
     //session durumu
     SessionManager session;
+    String userID;
 
 
 
@@ -65,6 +66,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 LoginState = mdb.loginControl(login_txt_username.getText().toString(),login_txt_pass.getText().toString());
+                userID = mdb.getUserID(login_txt_username.getText().toString());
 
                 if (LoginState == 0)
                 {
@@ -75,7 +77,7 @@ public class Login extends AppCompatActivity {
                 else
                 {
                     //giriş başarılı ise Session'a verilerimizi yolladık.
-                    session.createLoginSession(login_txt_username.getText().toString(), login_txt_pass.getText().toString());
+                    session.createLoginSession(login_txt_username.getText().toString(), login_txt_pass.getText().toString(),userID);
                     //Ardından Intent methodunu kullanarak nereden nereye gideceğini söylüyoruz.
                     Intent go_to_main = new Intent(Login.this, MainActivity.class);
                     startActivity(go_to_main);

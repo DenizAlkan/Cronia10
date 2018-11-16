@@ -30,6 +30,7 @@ public class SessionManager {
     public static final String KEY_USERNAME = "username";
 
     public static final String KEY_SIFRE = "sifre";
+    public static final String KEY_USERID = "userID";
 
     // Yapıcı fonksiyonumuz
     public SessionManager(Context context){
@@ -42,7 +43,7 @@ public class SessionManager {
     /**
      * login session'ı oluşturuyoruz. Ilk defa gelen veriyi kaydediyoruz.
      * */
-    public void createLoginSession(String username, String sifre){
+    public void createLoginSession(String username, String sifre,String userID){
 
         // giriş yapıldığında login değerini true yapıyoruz.
         editor.putBoolean(IS_LOGIN, true);
@@ -52,6 +53,7 @@ public class SessionManager {
 
         editor.putString(KEY_SIFRE, sifre);
 
+        editor.putString(KEY_USERID, userID);
         // değişiklikleri yolluyoruz.
         editor.commit();
     }
@@ -84,6 +86,8 @@ public class SessionManager {
         user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null));
 
         user.put(KEY_SIFRE, pref.getString(KEY_SIFRE, null));
+
+        user.put(KEY_USERID, pref.getString(KEY_USERID, null));
 
         return user;
     }
